@@ -31,4 +31,4 @@ Générateur simplifié de notices de livres au format standard ONIX 3.0, pensé
 
 ## Licence
 
-Ce projet est distribué sous **licence GPL-3.0.** Voir le fichier [LICENSE](https://github.com/Ax4M3/OniXpress/blob/main/LICENSE) ou la page [licence.html](https://ax4m3.github.io/OniXpress/pages/licence.html) pour plus de détails.
+Ce projet est distribué sous **licence GPL-3.0.** Voir le fichier [LICENSE](https://github.com/Ax4M3/OniXpress/blob/main/LICENSE) ou la page [licence.html](https://ax4m3.github.io/OniXpress/pages/license.html) pour plus de détails.
