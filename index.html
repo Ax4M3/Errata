@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OniXpress — Générateur simplifié ONIX 3.0</title>
+<meta name="description" content="Générez une fiche ONIX 3.0 structurellement correcte à partir d'un formulaire simple, entièrement dans votre navigateur. Aucune donnée n'est envoyée à un serveur.">
+<meta property="og:title" content="OniXpress — Générateur simplifié ONIX 3.0">
+<meta property="og:description" content="Remplissez une fiche, obtenez un fichier ONIX 3.0 valide côté structure, prêt à envoyer à un distributeur.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231A1A1A'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%23D4A017' font-family='serif'%3EO%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -149,9 +154,10 @@
     padding:8px 10px;
     transition: border-color 0.2s;
   }
-  input[type=text]:focus, select:focus, textarea:focus{
+  input[type=text]:focus, input[type=number]:focus, input[type=date]:focus, select:focus, textarea:focus{
     border-color: var(--accent-gold);
-    outline: none;
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 1px;
   }
   input::placeholder, textarea::placeholder {
     color: var(--ink-soft) !important;
@@ -159,10 +165,6 @@
   }
   input[type=date]{
     color-scheme: dark;
-  }
-  input:focus, select:focus, textarea:focus{
-    outline:2px solid var(--ink-soft);
-    outline-offset:1px;
   }
   textarea{resize:vertical; min-height:70px;}
   .isbn-status{
@@ -220,11 +222,6 @@
   #resetBtn:hover {
     border-color: var(--accent-red);
     background: rgba(255, 107, 107, 0.05);
-  }
-  .radio-group{display:flex; gap:16px; flex-wrap:wrap;}
-  .radio-option{
-    display:flex; align-items:center; gap:6px;
-    font-size:.88rem; color:var(--text);
   }
   .proof-wrap{
     position:sticky;
@@ -393,12 +390,12 @@ footer.note {
         <legend>Identification</legend>
         <div class="field">
           <label for="isbn">ISBN-13 <span class="req">*</span></label>
-          <input type="text" id="isbn" inputmode="numeric" placeholder="978XXXXXXXXXX" maxlength="17">
-          <div class="isbn-status neutral" id="isbnStatus">Saisissez les 13 chiffres, espaces ou tirets tolérés.</div>
+          <input type="text" id="isbn" inputmode="numeric" placeholder="978XXXXXXXXXX" maxlength="17" required aria-required="true" aria-describedby="isbnStatus">
+          <div class="isbn-status neutral" id="isbnStatus" aria-live="polite">Saisissez les 13 chiffres, espaces ou tirets tolérés.</div>
         </div>
         <div class="field">
           <label for="title">Titre <span class="req">*</span></label>
-          <input type="text" id="title" placeholder="Le titre du livre">
+          <input type="text" id="title" placeholder="Le titre du livre" required aria-required="true">
         </div>
         <div class="field">
           <label for="subtitle">Sous-titre</label>
@@ -422,12 +419,27 @@ footer.note {
         </div>
         <div class="field">
           <label for="language">Langue du texte <span class="req">*</span></label>
-          <select id="language">
+          <select id="language" required aria-required="true">
             <option value="fre" selected>Français</option>
             <option value="eng">Anglais</option>
             <option value="spa">Espagnol</option>
             <option value="ger">Allemand</option>
             <option value="ita">Italien</option>
+            <option value="por">Portugais</option>
+            <option value="dut">Néerlandais</option>
+            <option value="rus">Russe</option>
+            <option value="pol">Polonais</option>
+            <option value="swe">Suédois</option>
+            <option value="dan">Danois</option>
+            <option value="nor">Norvégien</option>
+            <option value="fin">Finnois</option>
+            <option value="gre">Grec</option>
+            <option value="tur">Turc</option>
+            <option value="ara">Arabe</option>
+            <option value="chi">Chinois</option>
+            <option value="jpn">Japonais</option>
+            <option value="kor">Coréen</option>
+            <option value="lat">Latin</option>
           </select>
         </div>
       </fieldset>
@@ -437,16 +449,52 @@ footer.note {
           <label for="subject">Catégorie (Thema — liste simplifiée)</label>
           <select id="subject">
             <option value="">— Choisir —</option>
-            <option value="FBA">Fiction contemporaine</option>
-            <option value="FC">Fiction historique</option>
-            <option value="FL">Science-fiction</option>
-            <option value="FM">Fantasy</option>
-            <option value="FF">Polar / thriller</option>
-            <option value="YFB">Jeunesse — fiction</option>
-            <option value="DNF">Biographie</option>
-            <option value="WZS">Essai / société</option>
-            <option value="JH">Sciences humaines</option>
-            <option value="AB">Arts</option>
+            <optgroup label="Fiction">
+              <option value="FBA">Fiction contemporaine</option>
+              <option value="FBC">Fiction classique</option>
+              <option value="FV">Fiction historique</option>
+              <option value="FC">Fiction biographique</option>
+              <option value="FL">Science-fiction</option>
+              <option value="FM">Fantasy</option>
+              <option value="FF">Policier / roman à énigme</option>
+              <option value="FH">Thriller / suspense</option>
+              <option value="FK">Horreur / fantastique</option>
+              <option value="FJ">Aventure</option>
+              <option value="FR">Romance</option>
+              <option value="FT">Saga familiale</option>
+              <option value="FN">Mythes et légendes en fiction</option>
+            </optgroup>
+            <optgroup label="Jeunesse">
+              <option value="YFB">Jeunesse — fiction générale</option>
+              <option value="YFH">Jeunesse — fantasy</option>
+              <option value="YFG">Jeunesse — science-fiction</option>
+              <option value="YFT">Jeunesse — fiction historique</option>
+              <option value="YFC">Jeunesse — aventure</option>
+              <option value="YFD">Jeunesse — horreur / fantômes</option>
+              <option value="YFQ">Jeunesse — histoires humoristiques</option>
+            </optgroup>
+            <optgroup label="Biographie & essai">
+              <option value="DNB">Biographie</option>
+              <option value="DNBA">Autobiographie</option>
+              <option value="DNC">Mémoires</option>
+              <option value="DNL">Essai littéraire</option>
+              <option value="DS">Littérature — histoire et critique</option>
+            </optgroup>
+            <optgroup label="Société & sciences humaines">
+              <option value="JB">Société et culture — généralités</option>
+              <option value="JH">Sciences humaines — sociologie et anthropologie</option>
+              <option value="JN">Éducation</option>
+              <option value="JP">Politique et gouvernement</option>
+            </optgroup>
+            <optgroup label="Arts">
+              <option value="AB">Arts — généralités</option>
+              <option value="AG">Beaux-arts — sujets et traitements</option>
+              <option value="AGA">Histoire de l'art</option>
+              <option value="AFC">Peinture</option>
+            </optgroup>
+            <optgroup label="Cuisine">
+              <option value="WBA">Cuisine générale et recettes</option>
+            </optgroup>
           </select>
         </div>
       </fieldset>
@@ -455,7 +503,7 @@ footer.note {
         <div class="row">
           <div class="field">
             <label for="publisher">Éditeur <span class="req">*</span></label>
-            <input type="text" id="publisher" placeholder="Nom de la maison">
+            <input type="text" id="publisher" placeholder="Nom de la maison" required aria-required="true">
           </div>
           <div class="field">
             <label for="collection">Collection</label>
@@ -465,7 +513,7 @@ footer.note {
         <div class="row">
           <div class="field">
             <label for="pubdate">Date de parution <span class="req">*</span></label>
-            <input type="date" id="pubdate">
+            <input type="date" id="pubdate" required aria-required="true">
           </div>
           <div class="field">
             <label for="productForm">Format</label>
@@ -479,15 +527,15 @@ footer.note {
         <div class="row-3 field" id="logisticsRow" style="margin-top:14px;">
           <div class="field">
             <label for="height">Hauteur (mm)</label>
-            <input type="number" id="height" placeholder="190">
+            <input type="number" id="height" min="0" placeholder="190">
           </div>
           <div class="field">
             <label for="width">Largeur (mm)</label>
-            <input type="number" id="width" placeholder="125">
+            <input type="number" id="width" min="0" placeholder="125">
           </div>
           <div class="field">
             <label for="weight">Poids (g)</label>
-            <input type="number" id="weight" placeholder="240">
+            <input type="number" id="weight" min="0" placeholder="240">
           </div>
         </div>
       </fieldset>
@@ -496,7 +544,7 @@ footer.note {
         <div class="row">
           <div class="field">
             <label for="price">Prix public TTC <span class="req">*</span></label>
-            <input type="number" id="price" min="0" step="0.01" placeholder="18.90">
+            <input type="number" id="price" min="0" step="0.01" placeholder="18.90" required aria-required="true">
             <div id="priceCalculated" style="font-family:'IBM Plex Mono', monospace; font-size:.75rem; color:var(--text-muted); margin-top:5px;"></div>
           </div>
           <div class="field">
@@ -526,14 +574,15 @@ footer.note {
       <div class="proof">
         <div class="proof-head">
           <p class="eyebrow">Épreuve XML</p>
-          <span class="status-pill" id="statusPill">incomplet</span>
+          <span class="status-pill" id="statusPill" aria-live="polite">incomplet</span>
         </div>
-        <ul class="checklist" id="checklist"></ul>
+        <ul class="checklist" id="checklist" aria-live="polite"></ul>
         <pre id="xmlOutput"></pre>
         <div class="proof-actions">
-          <button type="button" class="btn-primary" id="downloadBtn" disabled>Télécharger le .xml</button>
-          <button type="button" class="btn-ghost" id="copyBtn" disabled>Copier le XML</button>
+          <button type="button" class="btn-primary" id="downloadBtn" disabled title="Complétez les champs obligatoires ci-contre pour activer le téléchargement">Télécharger le .xml</button>
+          <button type="button" class="btn-ghost" id="copyBtn" disabled title="Complétez les champs obligatoires ci-contre pour activer la copie">Copier le XML</button>
           <button type="button" class="btn-ghost" id="resetBtn">Effacer la fiche</button>
+          <span id="copyError" role="alert" style="font-size:.75rem;color:var(--accent-red);align-self:center;"></span>
         </div>
       </div>
     </div>
@@ -544,29 +593,45 @@ footer.note {
     <div><strong>Oni<em>Xpress</em></strong> est un outil open source, gratuit et respectueux de la vie privée. Aucune donnée saisie ne quitte jamais votre ordinateur.</div>
     <div>Normes officielles basées sur les spécifications EDItEUR ONIX 3.0.</div>
     <div class="footer-links">
-      <a href="pages/license.html" target="_blank">Licence GNU GPL 3.0</a>
+      <a href="pages/license.html" target="_blank" rel="noopener noreferrer">Licence GNU GPL 3.0</a>
       <span> • </span>
-      <a href="https://github.com/Ax4M3/OnyXpress" target="_blank">Dépôt GitHub</a>
+      <a href="https://github.com/Ax4M3/OniXpress" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a>
       <span> • </span>
-      <a href="https://piaille.fr/@Axm" target="_blank">Mastodon</a>
+      <a href="https://piaille.fr/@Axm" target="_blank" rel="noopener noreferrer">Mastodon</a>
       <span> • </span>
-      <a href="https://liberapay.com/AxM3/donate" target="_blank">M'offrir du café</a>
+      <a href="https://liberapay.com/AxM3/donate" target="_blank" rel="noopener noreferrer">M'offrir du café</a>
     </div>
   </footer>
   
 <script>
 (function(){
-  const STORAGE_KEY = 'onixpress-v1.0.0-fiche';
+  const STORAGE_KEY = 'onixpress-fiche';
+  const STORAGE_SCHEMA_VERSION = 1;
   const fields = ['isbn','title','subtitle','summary','keywords','subject',
                    'publisher','collection','pubdate','productForm','price','currency',
                    'height', 'width', 'weight', 'availability', 'language'];
   let contributors = [{ name:'', role:'A01' }];
+  const sessionRef = Date.now();
   const contributorRoles = [
     { code:'A01', label:'Auteur' },
-    { code:'B06', label:'Traduit par' },
+    { code:'A02', label:'Avec la participation de' },
     { code:'A12', label:'Illustré par' },
-    { code:'A23', label:'Préface de' },
-    { code:'A15', label:'Sous la direction de' }
+    { code:'A13', label:'Photographies de' },
+    { code:'B06', label:'Traduit par' },
+    { code:'B05', label:'Adapté par' },
+    { code:'B01', label:'Sous la direction de / Édité par' },
+    { code:'B09', label:'Collection dirigée par' },
+    { code:'A15', label:'Préface de' },
+    { code:'A23', label:'Avant-propos de' },
+    { code:'A24', label:'Introduction de' },
+    { code:'A19', label:'Postface de' },
+    { code:'A21', label:'Commentaires de' },
+    { code:'A20', label:'Notes de' },
+    { code:'A34', label:'Index par' },
+    { code:'A36', label:'Couverture / illustration de couverture par' },
+    { code:'A11', label:'Conception graphique de' },
+    { code:'E07', label:'Lu par (livre audio)' },
+    { code:'A43', label:'Entretien mené par' }
   ];
   const els = {};
   fields.forEach(id => els[id] = document.getElementById(id));
@@ -606,6 +671,9 @@ footer.note {
     if(clean.length !== 13 || !/^\d{13}$/.test(clean)){
       return { state:'bad', msg:'Un ISBN-13 comporte 13 chiffres.' };
     }
+    if(!/^(978|979)/.test(clean)){
+      return { state:'bad', msg:'✗ Un ISBN-13 livre commence par 978 ou 979.' };
+    }
     const expected = isbn13CheckDigit(clean.slice(0,12));
     const actual = parseInt(clean[12],10);
     if(expected === actual){
@@ -620,19 +688,28 @@ footer.note {
       row.className = 'contributor-row';
       const nameField = document.createElement('div');
       nameField.className = 'field';
+      const nameInputId = `contrib-name-${idx}`;
       const label = document.createElement('label');
+      label.htmlFor = nameInputId;
       label.innerHTML = `Prénom/Nom ${idx===0 ? '<span class="req">*</span>' : ''}`;
       nameField.appendChild(label);
       const nameInput = document.createElement('input');
       nameInput.type = 'text';
+      nameInput.id = nameInputId;
       nameInput.placeholder = 'Ex: Prénom Nom';
       nameInput.value = c.name;
+      if(idx===0){ nameInput.required = true; nameInput.setAttribute('aria-required','true'); }
       nameInput.addEventListener('input', e => { contributors[idx].name = e.target.value; update(); });
       nameField.appendChild(nameInput);
       const roleField = document.createElement('div');
       roleField.className = 'field';
-      roleField.innerHTML = '<label>Rôle</label>';
+      const roleSelectId = `contrib-role-${idx}`;
+      const roleLabel = document.createElement('label');
+      roleLabel.htmlFor = roleSelectId;
+      roleLabel.textContent = 'Rôle';
+      roleField.appendChild(roleLabel);
       const roleSelect = document.createElement('select');
+      roleSelect.id = roleSelectId;
       contributorRoles.forEach(r => {
         const opt = document.createElement('option');
         opt.value = r.code; opt.textContent = r.label;
@@ -682,10 +759,11 @@ footer.note {
   function buildXml(state){
     const now = new Date();
     const sentDateTime = now.toISOString().replace(/[-:]/g,'').split('.')[0];
-    const recordRef = state.isbnClean ? `REF-${state.isbnClean}` : `REF-${Date.now()}`;
+    const recordRef = state.isbnClean ? `REF-${state.isbnClean}` : `REF-${sessionRef}`;
     const formattedPrice = parseFloat(state.price) ? parseFloat(state.price).toFixed(2) : '0.00';
     const taxDetails = getTaxDetails(state.currency, state.productForm);
-    const publishingStatus = state.availability === '10' ? '02' : '04';
+    const publishingStatusMap = { '10':'02', '20':'04', '40':'04', '31':'07' };
+    const publishingStatus = publishingStatusMap[state.availability] || '04';
     const contributorsXml = contributors.filter(c => c.name.trim()).length > 0
       ? contributors
           .filter(c => c.name.trim())
@@ -878,26 +956,43 @@ ${publishingDateXml ? '\n' + publishingDateXml : ''}
     statusPill.className = 'status-pill' + (allOk ? ' ready' : '');
     downloadBtn.disabled = !allOk;
     copyBtn.disabled = !allOk;
+    const missingLabel = allOk ? '' : checks.filter(c => !c.ok).map(c => c.label).join(', ');
+    downloadBtn.title = allOk ? 'Télécharger le fichier ONIX' : `Champs manquants : ${missingLabel}`;
+    copyBtn.title = allOk ? 'Copier le XML dans le presse-papiers' : `Champs manquants : ${missingLabel}`;
     const xml = buildXml(state);
     xmlOutput.innerHTML = highlightXml(xml);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      values: fields.reduce((acc,id) => (acc[id] = els[id].value, acc), {}),
-      contributors
-    }));
+    scheduleSave();
+  }
+  let saveTimer = null;
+  function scheduleSave(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          schemaVersion: STORAGE_SCHEMA_VERSION,
+          values: fields.reduce((acc,id) => (acc[id] = els[id].value, acc), {}),
+          contributors
+        }));
+      } catch(e){ }
+    }, 250);
   }
   function restore(){
     try {
       const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
       if(!saved) return;
-      fields.forEach(id => { if(saved.values && saved.values[id] !== undefined) els[id].value = saved.values[id]; });
+      fields.forEach(id => { if(saved.values && typeof saved.values[id] === 'string') els[id].value = saved.values[id]; });
       if(Array.isArray(saved.contributors) && saved.contributors.length){
-        contributors = saved.contributors;
+        const cleaned = saved.contributors
+          .filter(c => c && typeof c.name === 'string')
+          .map(c => ({ name: c.name, role: typeof c.role === 'string' ? c.role : 'A01' }));
+        if(cleaned.length) contributors = cleaned;
       }
-    } catch(e){ /* fiche corrompue, on repart de zéro */ }
+    } catch(e){ }
   }
   document.getElementById('resetBtn').addEventListener('click', () => {
     if(!confirm('Effacer la fiche en cours ?')) return;
-    localStorage.removeItem(STORAGE_KEY);
+    clearTimeout(saveTimer);
+    try { localStorage.removeItem(STORAGE_KEY); } catch(e){ }
     fields.forEach(id => els[id].value = '');
     els.productForm.value = 'BC';
     els.currency.value = 'EUR-FR';
@@ -936,6 +1031,9 @@ ${publishingDateXml ? '\n' + publishingDateXml : ''}
       }, 2000);
     }).catch(err => {
       console.error("Erreur lors de la copie : ", err);
+      const copyError = document.getElementById('copyError');
+      copyError.textContent = "Échec de la copie — utilisez plutôt le téléchargement.";
+      setTimeout(() => { copyError.textContent = ''; }, 4000);
     });
   });
   els.isbn.addEventListener('input', (e) => {
