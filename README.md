@@ -1,7 +1,7 @@
 # OniXpress — Générateur ONIX 3.0 simplifié
 
 <div align="center">
-  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231A1A1A'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%23D4A017' font-family='serif'%3EO%3C/text%3E%3C/svg%3E" width='80' alt="Logo OniXpress" />
+  <img src="/asstets/logo.svg" width="80" alt="Logo OniXpress" />
   <p align="center">
     <strong>Un code au service de la création culturelle et de la bibliodiversité.</strong>
   </p>
