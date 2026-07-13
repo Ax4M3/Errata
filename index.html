@@ -72,6 +72,22 @@
     color:var(--accent-gold);
     margin:0 0 10px;
   }
+    .btn-back {
+    display:inline-block;
+    font-family:'IBM Plex Sans', sans-serif;
+    background:var(--card);
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:10px 20px;
+    border-radius:3px;
+    font-size:.88rem;
+    font-weight:500;
+    margin-bottom:20px;
+  }
+  .btn-back:hover {
+    background:rgba(255,255,255,0.05);
+    border-color:var(--ink-soft);
+  }
   h1{
     font-family:'Fraunces', serif;
     font-weight:600;
@@ -474,6 +490,9 @@ footer.note {
     <div class="box">
       <strong>OniXpress v1.6.2 — à lire avant usage professionnel :</strong> ce générateur produit un squelette ONIX 3.0 structurellement correct pour un cas simple. Il ne fait pas de validation XSD complète et la liste de classification ci-dessous est volontairement réduite. Vérifiez les codes auprès des listes officielles EDItEUR avant envoi à un distributeur.
     </div>
+    <div class="box">
+      <strong>Une version <em>beta</em></strong> en cours de production, elle apporte une version <strong>plus professionnelle</strong>, elle n'est pas encore parfaitement fonctionnelle mais si vous souhaitez voir et utiliser cette version cliquez ici : <a href="admin/betatestindex.html" target="_blank" rel="noopener noreferrer">Version <em>Beta</em> 2.0.0</a>
+    </div>
   </div>
   <main class="layout">
     <form class="card" id="onixForm" autocomplete="off">
@@ -800,12 +819,13 @@ footer.note {
     <div>Normes officielles basées sur les spécifications EDItEUR ONIX 3.0.</div>
     <div class="footer-links">
       <a href="pages/license.html" target="_blank" rel="noopener noreferrer">Licence GNU GPL 3.0</a>
-      <div></div>
-      <a href="https://github.com/Ax4M3/OniXpress" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a>
-      <span> • </span>
-      <a href="https://piaille.fr/@Axm" target="_blank" rel="noopener noreferrer">Mastodon</a>
-      <span> • </span>
-      <a href="https://liberapay.com/AxM3/donate" target="_blank" rel="noopener noreferrer">M'offrir du café</a>
+      <div>
+        <a href="https://github.com/Ax4M3/OniXpress" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a>
+        <span> • </span>
+        <a href="https://piaille.fr/@Axm" target="_blank" rel="noopener noreferrer">Mastodon</a>
+        <span> • </span>
+        <a href="https://liberapay.com/AxM3/donate" target="_blank" rel="noopener noreferrer">M'offrir du café</a>
+      </div>
     </div>
   </footer>
   
