@@ -150,8 +150,6 @@
     background:rgba(255,255,255,0.05);
     border-color:var(--ink-soft);
   }
-
-  /* --- Recherche --- */
   .thema-search{
     width:100%;
     background:var(--card);
@@ -175,8 +173,6 @@
     font-style:italic;
     margin:12px 0 24px;
   }
-
-  /* --- Arborescence type navigateur Thema --- */
   .thema-tree{
     border:1px solid var(--line);
     border-radius:6px;
@@ -321,30 +317,32 @@ footer.note {
 
 <header class="top">
     <nav class="top-nav">
+      <a href="../index.html">Retour à la Fiche Titre</a>
+      <span> • </span>
       <a href="project.html">Le Projet et le mode d'emploi</a>
       <span> • </span>
       <a href="about-me.html">A propos de l'auteur</a>
     </nav>
-  <a href="about.html" class="btn-back">← Retour à « Qu'est-ce qu'ONIX ? »</a>
-  <p class="eyebrow">Classification internationale du livre</p>
-  <h1>Les catégories Thema</h1>
+  <a href="../index.html" class="btn-back">← Retour au Générateur</a>
+  <p class="eyebrow">Classification internationale du livre — OniXpress v1.6.2</p>
+  <h1>Les catégories Thema (Liste Étendue)</h1>
 </header>
 
 <main class="content">
   <p><strong>Thema</strong> est le système de classification thématique du livre géré par EDItEUR, l'organisme international qui maintient également la norme ONIX. Il remplace progressivement les anciennes classifications nationales (CLIL en France, BIC au Royaume-Uni) et permet à un même code de garder son sens d'un pays à l'autre, quelle que soit la langue.</p>
 
   <blockquote>
-    « Thema compte une vingtaine de grandes familles de sujets (A à Y), elles-mêmes subdivisées en plus de 2 500 catégories précises. »
+    « Thema compte une dizaine de grands groupes de sujets (A à Y) configurés dans la liste étendue d'OniXpress, simplifiant la saisie de vos métadonnées ONIX 3.0. »
   </blockquote>
 
-  <p>Cette page reprend, sous une forme parcourable proche du <a href="https://ns.editeur.org/thema/fr" target="_blank" rel="noopener noreferrer">navigateur officiel d'EDItEUR</a>, les catégories que le champ « Catégorie (Thema) » d'OniXpress propose actuellement, replacées dans leur famille d'origine. Utilisez la recherche ci-dessous ou dépliez une famille pour l'explorer.</p>
+  <p>Cette page reprend, sous une forme parcourable proche du <a href="https://ns.editeur.org/thema/fr" target="_blank" rel="noopener noreferrer">navigateur officiel d'EDItEUR</a>, les catégories que le champ « Catégorie (Thema — liste étendue) » d'OniXpress propose actuellement, replacées dans leur famille d'origine. Utilisez la recherche ci-dessous ou dépliez une famille pour l'explorer.</p>
 
-  <input type="text" class="thema-search" id="thema-search" placeholder="Rechercher une catégorie (ex : policier, jeunesse, biographie…)" aria-label="Rechercher une catégorie Thema">
+  <input type="text" class="thema-search" id="thema-search" placeholder="Rechercher une catégorie (ex : policier, jeunesse, biographie, cuisine…)" aria-label="Rechercher une catégorie Thema">
   <p class="thema-empty" id="thema-empty">Aucune catégorie ne correspond à votre recherche.</p>
 
   <div class="thema-tree" id="thema-tree">
 
-    <details class="cat" open data-search="fiction contemporaine classique historique biographique science-fiction fantasy policier mystère thriller suspense horreur fantastique aventure romance saga familiale mythes légendes">
+    <details class="cat" open data-search="fiction contemporaine classique historique biographique science-fiction fantasy policier mystère thriller suspense horreur fantastique aventure romance saga familiale mythes légendes littéraire générale">
       <summary>
         <span class="cat-code">F</span>
         <span class="cat-heading">Fiction et sujets connexes</span>
@@ -365,20 +363,21 @@ footer.note {
           <li><span class="subcat-code">FJ</span><span class="subcat-label">Aventure <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">FR</span><span class="subcat-label">Romance <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">FT</span><span class="subcat-label">Saga familiale <span class="used-tag">utilisé</span></span></li>
-          <li><span class="subcat-code">FN</span><span class="subcat-label">Mythes et légendes en fiction <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">FN</span><span class="subcat-label">Mythes et légendes <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">FLX</span><span class="subcat-label">Fiction littéraire générale <span class="used-tag">utilisé</span></span></li>
         </ul>
         <a class="more-link" href="https://ns.editeur.org/thema/fr/F" target="_blank" rel="noopener noreferrer">Voir toutes les sous-catégories F sur le navigateur officiel →</a>
       </div>
     </details>
 
-    <details class="cat" data-search="jeunesse fantasy science-fiction historique aventure horreur fantômes humoristiques enfants ados">
+    <details class="cat" data-search="jeunesse fiction générale fantasy science-fiction historique aventure horreur fantômes histoires humoristiques non-fiction poésie livres images">
       <summary>
         <span class="cat-code">Y</span>
-        <span class="cat-heading">Jeunesse, adolescents et éducation</span>
+        <span class="cat-heading">Jeunesse</span>
         <span class="cat-note">utilisée dans OniXpress</span>
       </summary>
       <div class="cat-body">
-        <p class="cat-desc">Ouvrages destinés aux enfants, adolescents, et contenus à visée pédagogique.</p>
+        <p class="cat-desc">Livres de fiction et documentaires pour enfants et adolescents.</p>
         <ul class="subcat-list">
           <li><span class="subcat-code">YFB</span><span class="subcat-label">Jeunesse — fiction générale <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">YFH</span><span class="subcat-label">Jeunesse — fantasy <span class="used-tag">utilisé</span></span></li>
@@ -387,252 +386,221 @@ footer.note {
           <li><span class="subcat-code">YFC</span><span class="subcat-label">Jeunesse — aventure <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">YFD</span><span class="subcat-label">Jeunesse — horreur / fantômes <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">YFQ</span><span class="subcat-label">Jeunesse — histoires humoristiques <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">YX</span><span class="subcat-label">Jeunesse — non-fiction <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">YPS</span><span class="subcat-label">Jeunesse — poésie <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">YBC</span><span class="subcat-label">Jeunesse — livres d'images <span class="used-tag">utilisé</span></span></li>
         </ul>
         <a class="more-link" href="https://ns.editeur.org/thema/fr/Y" target="_blank" rel="noopener noreferrer">Voir toutes les sous-catégories Y sur le navigateur officiel →</a>
       </div>
     </details>
 
-    <details class="cat" data-search="biographie autobiographie mémoires essai littéraire littérature critique">
+    <details class="cat" data-search="biographie autobiographie mémoires essai littéraire littérature histoire critique biographie littéraire essais fiction">
       <summary>
-        <span class="cat-code">D</span>
-        <span class="cat-heading">Biographie, littérature et critique littéraire</span>
+        <span class="cat-code">D/S</span>
+        <span class="cat-heading">Biographie, littérature et critique</span>
         <span class="cat-note">utilisée dans OniXpress</span>
       </summary>
       <div class="cat-body">
-        <p class="cat-desc">Récits de vie et ouvrages sur la littérature elle-même.</p>
+        <p class="cat-desc">Ouvrages biographiques, études critiques et essais littéraires.</p>
         <ul class="subcat-list">
           <li><span class="subcat-code">DNB</span><span class="subcat-label">Biographie <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">DNBA</span><span class="subcat-label">Autobiographie <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">DNC</span><span class="subcat-label">Mémoires <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">DNL</span><span class="subcat-label">Essai littéraire <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">DS</span><span class="subcat-label">Littérature — histoire et critique <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">DSB</span><span class="subcat-label">Biographie littéraire <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">DCF</span><span class="subcat-label">Essais sur la fiction <span class="used-tag">utilisé</span></span></li>
         </ul>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/D" target="_blank" rel="noopener noreferrer">Voir toutes les sous-catégories D sur le navigateur officiel →</a>
       </div>
     </details>
 
-    <details class="cat" data-search="société culture sciences humaines sociologie anthropologie éducation politique gouvernement">
+    <details class="cat" data-search="société culture généralités sociologie anthropologie éducation politique gouvernement histoire politique féminisme études de genre médias communication études culturelles">
       <summary>
         <span class="cat-code">J</span>
-        <span class="cat-heading">Société et sciences sociales</span>
+        <span class="cat-heading">Société et sciences humaines</span>
         <span class="cat-note">utilisée dans OniXpress</span>
       </summary>
       <div class="cat-body">
-        <p class="cat-desc">Essais et ouvrages traitant de la société, des institutions et des sciences humaines.</p>
+        <p class="cat-desc">Sciences sociales, questions politiques, éducation et études culturelles.</p>
         <ul class="subcat-list">
           <li><span class="subcat-code">JB</span><span class="subcat-label">Société et culture — généralités <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">JH</span><span class="subcat-label">Sociologie et anthropologie <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">JN</span><span class="subcat-label">Éducation <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">JP</span><span class="subcat-label">Politique et gouvernement <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">JPH</span><span class="subcat-label">Histoire politique <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">JFS</span><span class="subcat-label">Féminisme et études de genre <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">JM</span><span class="subcat-label">Médias et communication <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">JHMC</span><span class="subcat-label">Études culturelles <span class="used-tag">utilisé</span></span></li>
         </ul>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/J" target="_blank" rel="noopener noreferrer">Voir toutes les sous-catégories J sur le navigateur officiel →</a>
       </div>
     </details>
 
-    <details class="cat" data-search="arts beaux-arts peinture histoire de l'art">
+    <details class="cat" data-search="arts généralités beaux-arts sujets traitements histoire art peinture design architecture photographie photographies">
       <summary>
         <span class="cat-code">A</span>
         <span class="cat-heading">Arts</span>
         <span class="cat-note">utilisée dans OniXpress</span>
       </summary>
       <div class="cat-body">
-        <p class="cat-desc">Beaux-arts, arts appliqués et histoire de l'art.</p>
+        <p class="cat-desc">Beaux-arts, architecture, design graphique, photographie et histoire de l'art.</p>
         <ul class="subcat-list">
           <li><span class="subcat-code">AB</span><span class="subcat-label">Arts — généralités <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">AG</span><span class="subcat-label">Beaux-arts — sujets et traitements <span class="used-tag">utilisé</span></span></li>
-          <li><span class="subcat-code">AGA</span><span class="subcat-label">Histoire de l'art <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">AGA holiday</span><span class="subcat-label">Histoire de l'art <span class="used-tag">utilisé</span></span></li>
           <li><span class="subcat-code">AFC</span><span class="subcat-label">Peinture <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">AK</span><span class="subcat-label">Art et design <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">AM</span><span class="subcat-label">Architecture <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">AP</span><span class="subcat-label">Photographie et photographies <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">ATD</span><span class="subcat-label">Design <span class="used-tag">utilisé</span></span></li>
         </ul>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/A" target="_blank" rel="noopener noreferrer">Voir toutes les sous-catégories A sur le navigateur officiel →</a>
       </div>
     </details>
 
-    <details class="cat" data-search="style de vie loisirs passe-temps cuisine recettes gastronomie">
+    <details class="cat" data-search="cuisine générale recettes cuisine monde cuisine française régimes nutrition boissons vin bière cocktails cuisine végétarienne végane">
       <summary>
         <span class="cat-code">W</span>
-        <span class="cat-heading">Style de vie, loisirs et passe-temps</span>
+        <span class="cat-heading">Cuisine, gastronomie et nature</span>
         <span class="cat-note">utilisée dans OniXpress</span>
       </summary>
       <div class="cat-body">
-        <p class="cat-desc">Cuisine, artisanat, jeux et centres d'intérêt grand public.</p>
+        <p class="cat-desc">Livres de recettes, gastronomie régionale, boissons et guides de nutrition.</p>
         <ul class="subcat-list">
           <li><span class="subcat-code">WBA</span><span class="subcat-label">Cuisine générale et recettes <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">WBTD</span><span class="subcat-label">Cuisine du monde <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">WBF</span><span class="subcat-label">Cuisine française <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">WBD</span><span class="subcat-label">Régimes et nutrition <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">WBJ</span><span class="subcat-label">Boissons (vin, bière, cocktails) <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">WBS</span><span class="subcat-label">Cuisine végétarienne/végane <span class="used-tag">utilisé</span></span></li>
         </ul>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/W" target="_blank" rel="noopener noreferrer">Voir toutes les sous-catégories W sur le navigateur officiel →</a>
       </div>
     </details>
 
-    <details class="cat" data-search="langues linguistique">
+    <details class="cat" data-search="conservation nature écologie environnement changement climatique vie sauvage animaux jardinage">
       <summary>
-        <span class="cat-code">C</span>
-        <span class="cat-heading">Langues et linguistique</span>
+        <span class="cat-code">R/T</span>
+        <span class="cat-heading">Nature et environnement</span>
+        <span class="cat-note">utilisée dans OniXpress</span>
       </summary>
       <div class="cat-body">
-        <p class="cat-desc">Apprentissage des langues, dictionnaires, linguistique générale et appliquée. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/C" target="_blank" rel="noopener noreferrer">Explorer la famille C sur le navigateur officiel →</a>
+        <p class="cat-desc">Écologie, gestion de l'environnement, flore, faune et art du jardinage.</p>
+        <ul class="subcat-list">
+          <li><span class="subcat-code">RNC</span><span class="subcat-label">Conservation de la nature <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">RN</span><span class="subcat-label">Écologie et environnement <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">RGC</span><span class="subcat-label">Changement climatique <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">WN</span><span class="subcat-label">Vie sauvage et animaux <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">TV</span><span class="subcat-label">Jardinage <span class="used-tag">utilisé</span></span></li>
+        </ul>
       </div>
     </details>
 
-    <details class="cat" data-search="référence information ouvrages généraux encyclopédies">
+    <details class="cat" data-search="finance économie économie internationale comptabilité marketing entrepreneuriat droit généralités droit privé droit public droit affaires droit constitutionnel">
       <summary>
-        <span class="cat-code">G</span>
-        <span class="cat-heading">Ouvrages de référence, information et sujets transversaux</span>
+        <span class="cat-code">K/L</span>
+        <span class="cat-heading">Économie, entreprise et droit</span>
+        <span class="cat-note">utilisée dans OniXpress</span>
       </summary>
       <div class="cat-body">
-        <p class="cat-desc">Encyclopédies, dictionnaires généraux, ouvrages interdisciplinaires. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/G" target="_blank" rel="noopener noreferrer">Explorer la famille G sur le navigateur officiel →</a>
+        <p class="cat-desc">Gestion d'entreprise, marketing, théories économiques et textes juridiques.</p>
+        <ul class="subcat-list">
+          <li><span class="subcat-code">KCF</span><span class="subcat-label">Finance <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">KJ</span><span class="subcat-label">Économie <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">KJK</span><span class="subcat-label">Économie internationale <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">KFF</span><span class="subcat-label">Comptabilité <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">KNS</span><span class="subcat-label">Marketing <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">KJV</span><span class="subcat-label">Entrepreneuriat <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">LN</span><span class="subcat-label">Droit — généralités <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">LND</span><span class="subcat-label">Droit privé <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">LNP</span><span class="subcat-label">Droit public <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">LNKD</span><span class="subcat-label">Droit des affaires <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">LNC</span><span class="subcat-label">Droit constitutionnel <span class="used-tag">utilisé</span></span></li>
+        </ul>
       </div>
     </details>
 
-    <details class="cat" data-search="économie finance entreprise gestion management">
+    <details class="cat" data-search="mathématiques physique sciences de la terre biologie sciences de la vie chimie technologie ingénierie informatique">
       <summary>
-        <span class="cat-code">K</span>
-        <span class="cat-heading">Économie, finance, entreprise et gestion</span>
+        <span class="cat-code">P/U</span>
+        <span class="cat-heading">Sciences et technique</span>
+        <span class="cat-note">utilisée dans OniXpress</span>
       </summary>
       <div class="cat-body">
-        <p class="cat-desc">Ouvrages professionnels et grand public sur l'économie et le monde de l'entreprise. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/K" target="_blank" rel="noopener noreferrer">Explorer la famille K sur le navigateur officiel →</a>
+        <p class="cat-desc">Sciences dures, mathématiques fondamentales, ingénierie et informatique.</p>
+        <ul class="subcat-list">
+          <li><span class="subcat-code">PD</span><span class="subcat-label">Mathématiques <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">PH</span><span class="subcat-label">Physique <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">PST</span><span class="subcat-label">Sciences de la Terre <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">PB</span><span class="subcat-label">Biologie et sciences de la vie <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">PS</span><span class="subcat-label">Chimie <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">TJ</span><span class="subcat-label">Technologie, ingénierie <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">UY</span><span class="subcat-label">Informatique <span class="used-tag">utilisé</span></span></li>
+        </ul>
       </div>
     </details>
 
-    <details class="cat" data-search="droit juridique lois">
+    <details class="cat" data-search="dictionnaires encyclopédies éducation enseignement supérieur langues">
       <summary>
-        <span class="cat-code">L</span>
-        <span class="cat-heading">Droit</span>
+        <span class="cat-code">G/C</span>
+        <span class="cat-heading">Référence et éducation</span>
+        <span class="cat-note">utilisée dans OniXpress</span>
       </summary>
       <div class="cat-body">
-        <p class="cat-desc">Ouvrages juridiques, généraux ou spécialisés par domaine du droit. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/L" target="_blank" rel="noopener noreferrer">Explorer la famille L sur le navigateur officiel →</a>
+        <p class="cat-desc">Ouvrages de référence, apprentissage des langues et guides pédagogiques.</p>
+        <ul class="subcat-list">
+          <li><span class="subcat-code">GBC</span><span class="subcat-label">Dictionnaires et encyclopédies <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">JN</span><span class="subcat-label">Éducation <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">JNU alert</span><span class="subcat-label">Enseignement supérieur <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">CJ</span><span class="subcat-label">Langues <span class="used-tag">utilisé</span></span></li>
+        </ul>
       </div>
     </details>
 
-    <details class="cat" data-search="médecine soins infirmiers santé professionnelle">
-      <summary>
-        <span class="cat-code">M</span>
-        <span class="cat-heading">Médecine et soins infirmiers</span>
-      </summary>
-      <div class="cat-body">
-        <p class="cat-desc">Ouvrages médicaux à destination des professionnels de santé. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/M" target="_blank" rel="noopener noreferrer">Explorer la famille M sur le navigateur officiel →</a>
-      </div>
-    </details>
-
-    <details class="cat" data-search="histoire archéologie">
+    <details class="cat" data-search="histoire histoire générale mondiale histoire périodes spécifiques histoire par région histoire militaire">
       <summary>
         <span class="cat-code">N</span>
-        <span class="cat-heading">Histoire et archéologie</span>
+        <span class="cat-heading">Histoire</span>
+        <span class="cat-note">utilisée dans OniXpress</span>
       </summary>
       <div class="cat-body">
-        <p class="cat-desc">Ouvrages historiques, par période ou par région du monde. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/N" target="_blank" rel="noopener noreferrer">Explorer la famille N sur le navigateur officiel →</a>
+        <p class="cat-desc">Histoire mondiale, régionale, militaire et récits de périodes historiques spécifiques.</p>
+        <ul class="subcat-list">
+          <li><span class="subcat-code">NH</span><span class="subcat-label">Histoire <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">NHD</span><span class="subcat-label">Histoire générale et mondiale <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">NHF</span><span class="subcat-label">Histoire des périodes spécifiques <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">NHG</span><span class="subcat-label">Histoire par région <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">NHW</span><span class="subcat-label">Histoire militaire <span class="used-tag">utilisé</span></span></li>
+        </ul>
       </div>
     </details>
 
-    <details class="cat" data-search="mathématiques sciences physique chimie biologie">
-      <summary>
-        <span class="cat-code">P</span>
-        <span class="cat-heading">Mathématiques et sciences</span>
-      </summary>
-      <div class="cat-body">
-        <p class="cat-desc">Sciences dures, de la vulgarisation aux ouvrages académiques. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/P" target="_blank" rel="noopener noreferrer">Explorer la famille P sur le navigateur officiel →</a>
-      </div>
-    </details>
-
-    <details class="cat" data-search="philosophie religion spiritualité">
-      <summary>
-        <span class="cat-code">Q</span>
-        <span class="cat-heading">Philosophie et religion</span>
-      </summary>
-      <div class="cat-body">
-        <p class="cat-desc">Philosophie, théologie, religions et spiritualité. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/Q" target="_blank" rel="noopener noreferrer">Explorer la famille Q sur le navigateur officiel →</a>
-      </div>
-    </details>
-
-    <details class="cat" data-search="géographie environnement urbanisme sciences de la terre voyage">
-      <summary>
-        <span class="cat-code">R</span>
-        <span class="cat-heading">Sciences de la Terre, géographie, environnement, urbanisme</span>
-      </summary>
-      <div class="cat-body">
-        <p class="cat-desc">Géographie, écologie, aménagement du territoire et guides de voyage. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/R" target="_blank" rel="noopener noreferrer">Explorer la famille R sur le navigateur officiel →</a>
-      </div>
-    </details>
-
-    <details class="cat" data-search="sports loisirs">
-      <summary>
-        <span class="cat-code">S</span>
-        <span class="cat-heading">Sports et loisirs</span>
-      </summary>
-      <div class="cat-body">
-        <p class="cat-desc">Pratique sportive, règles et culture du sport. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/S" target="_blank" rel="noopener noreferrer">Explorer la famille S sur le navigateur officiel →</a>
-      </div>
-    </details>
-
-    <details class="cat" data-search="technologie ingénierie agriculture industrie">
-      <summary>
-        <span class="cat-code">T</span>
-        <span class="cat-heading">Technologie, ingénierie, agriculture et procédés industriels</span>
-      </summary>
-      <div class="cat-body">
-        <p class="cat-desc">Ouvrages techniques et professionnels sur l'industrie et l'agriculture. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/T" target="_blank" rel="noopener noreferrer">Explorer la famille T sur le navigateur officiel →</a>
-      </div>
-    </details>
-
-    <details class="cat" data-search="informatique programmation technologies de l'information">
-      <summary>
-        <span class="cat-code">U</span>
-        <span class="cat-heading">Informatique et technologies de l'information</span>
-      </summary>
-      <div class="cat-body">
-        <p class="cat-desc">Programmation, réseaux, usages professionnels et grand public de l'informatique. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/U" target="_blank" rel="noopener noreferrer">Explorer la famille U sur le navigateur officiel →</a>
-      </div>
-    </details>
-
-    <details class="cat" data-search="santé relations développement personnel bien-être psychologie">
+    <details class="cat" data-search="santé relations développement personnel santé familiale santé publique">
       <summary>
         <span class="cat-code">V</span>
-        <span class="cat-heading">Santé, relations et développement personnel</span>
+        <span class="cat-heading">Santé et bien-être</span>
+        <span class="cat-note">utilisée dans OniXpress</span>
       </summary>
       <div class="cat-body">
-        <p class="cat-desc">Bien-être, vie relationnelle, développement personnel à destination du grand public. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/V" target="_blank" rel="noopener noreferrer">Explorer la famille V sur le navigateur officiel →</a>
-      </div>
-    </details>
-
-    <details class="cat" data-search="romans graphiques bandes dessinées manga dessins animés bd">
-      <summary>
-        <span class="cat-code">X</span>
-        <span class="cat-heading">Romans graphiques, bandes dessinées et dessins animés</span>
-      </summary>
-      <div class="cat-body">
-        <p class="cat-desc">BD, comics, manga et adaptations animées. Non détaillée dans OniXpress pour le moment.</p>
-        <a class="more-link" href="https://ns.editeur.org/thema/fr/X" target="_blank" rel="noopener noreferrer">Explorer la famille X sur le navigateur officiel →</a>
+        <p class="cat-desc">Développement personnel, psychologie, bien-être et santé publique.</p>
+        <ul class="subcat-list">
+          <li><span class="subcat-code">V</span><span class="subcat-label">Santé, relations et développement personnel <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">VF</span><span class="subcat-label">Santé familiale <span class="used-tag">utilisé</span></span></li>
+          <li><span class="subcat-code">VS</span><span class="subcat-label">Santé publique <span class="used-tag">utilisé</span></span></li>
+        </ul>
       </div>
     </details>
 
   </div>
 
   <div class="source-note">
-    <strong>Sur cette liste :</strong> les sept familles marquées « utilisée dans OniXpress » reprennent exactement les codes proposés dans le formulaire du générateur, vérifiés un par un sur le navigateur officiel EDItEUR (<a href="https://ns.editeur.org/thema" target="_blank" rel="noopener noreferrer">ns.editeur.org/thema</a>, version 1.6). Les treize autres familles sont listées avec leur seul intitulé de tête : OniXpress ne propose pas encore de sous-catégories dans ces domaines, faute de vérification poussée. Thema comptant plus de 2 500 catégories au total, cette page reste un point d'entrée simplifié — pour un usage professionnel exhaustif, consultez toujours le navigateur officiel.
+    <p><strong>Note sur la synchronisation :</strong> Cette liste correspond rigoureusement à la configuration du sélecteur <code>#subject</code> de l'application principale <strong>OniXpress v1.6.2</strong>. Tout code sélectionné ici générera la balise <code>&lt;Subject&gt;</code> correspondante au format international standard ONIX 3.0.</p>
   </div>
-
 </main>
 
 <footer class="note">
-    <div><strong>Oni<em>Xpress</em></strong> est un outil open source, gratuit et respectueux de la vie privée. Aucune donnée saisie ne quitte jamais votre ordinateur.</div>
-    <div>Classification Thema © EDItEUR — reproduite ici à titre informatif, sans lien officiel avec EDItEUR.</div>
+    <div>OniXpress — Outil open-source pour l'édition indépendante</div>
     <div class="footer-links">
-      <a href="license.html" target="_blank" rel="noopener noreferrer">Licence GNU GPL 3.0</a>
+      <a href="https://github.com/AxM3/OniXpress" target="_blank" rel="noopener noreferrer">GitHub</a>
       <span> • </span>
-      <a href="https://github.com/Ax4M3/OniXpress" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a>
-      <span> • </span>
-      <a href="https://piaille.fr/@Axm" target="_blank" rel="noopener noreferrer">Mastodon</a>
+      <a href="https://mamot.fr/@axm" target="_blank" rel="noopener noreferrer">Mastodon</a>
       <span> • </span>
       <a href="https://liberapay.com/AxM3/donate" target="_blank" rel="noopener noreferrer">M'offrir du café</a>
     </div>
@@ -657,6 +625,7 @@ footer.note {
         subLabels.forEach(function(el){ haystack += ' ' + normalize(el.textContent); });
         var subCodes = cat.querySelectorAll('.subcat-code');
         subCodes.forEach(function(el){ haystack += ' ' + normalize(el.textContent); });
+        
         var match = q === '' || haystack.indexOf(q) !== -1;
         cat.style.display = match ? '' : 'none';
         if(match){
@@ -664,7 +633,8 @@ footer.note {
           if(q !== '') cat.open = true;
         }
       });
-      emptyMsg.style.display = visibleCount === 0 ? 'block' : 'none';
+      
+      emptyMsg.style.display = (visibleCount === 0 && q !== '') ? 'block' : 'none';
     });
   })();
 </script>
