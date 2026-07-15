@@ -3,475 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OniXpress — Générateur simplifié ONIX 3.0</title>
+<title>Errata — Générateur simplifié ONIX 3.0</title>
 <meta name="description" content="Générez une fiche ONIX 3.0 structurellement correcte à partir d'un formulaire simple, entièrement dans votre navigateur. Aucune donnée n'est envoyée à un serveur.">
-<meta property="og:title" content="OniXpress — Générateur simplifié ONIX 3.0">
+<meta property="og:title" content="Errata — Générateur ONIX 3.0">
 <meta property="og:description" content="Remplissez une fiche, obtenez un fichier ONIX 3.0 valide côté structure, prêt à envoyer à un distributeur.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231A1A1A'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%23D4A017' font-family='serif'%3EO%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231A1A1A'/%3E%3Ctext x='50' y='68' text-anchor='middle' fill='%23D4A017' font-family='serif'%3E%3Ctspan font-size='58'%3EE%3C/tspan%3E%3Ctspan font-size='44'%3Ea%3C/tspan%3E%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#1A1A1A;
-    --card:#252525;
-    --ink:#E0E0E0;
-    --ink-soft:#A0A0A0;
-    --accent-red:#FF6B6B;
-    --accent-gold:#D4A017;
-    --line:#404040;
-    --text:#F0F0F0;
-    --text-muted:#B0B0B0;
-    --ok:#66BB6A;
-    --drag-bg: rgba(214, 160, 23, 0.1);
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--paper);
-    color:var(--text);
-    font-family:'IBM Plex Sans', sans-serif;
-    line-height:1.5;
-    padding:0 0 80px;
-    transition: background-color 0.2s;
-  }
-  body.dragover {
-    background-color: #201e18;
-  }
-  a{color:var(--ink);}
-  header.top{
-    max-width:1180px;
-    margin:0 auto;
-    padding:40px 24px 28px;
-    position: relative;
-  }
-  .top-nav {
-    display: flex;
-    justify-content: flex-end;
-    gap: 16px;
-    margin-bottom: 20px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .top-nav a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .top-nav a:hover {
-    color: var(--accent-gold);
-  }
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    text-transform:uppercase;
-    letter-spacing:.12em;
-    font-size:.72rem;
-    color:var(--accent-gold);
-    margin:0 0 10px;
-  }
-    .btn-back {
-    display:inline-block;
-    font-family:'IBM Plex Sans', sans-serif;
-    background:var(--card);
-    border:1px solid var(--line);
-    color:var(--ink);
-    padding:10px 20px;
-    border-radius:3px;
-    font-size:.88rem;
-    font-weight:500;
-    margin-bottom:20px;
-  }
-  .btn-back:hover {
-    background:rgba(255,255,255,0.05);
-    border-color:var(--ink-soft);
-  }
-  h1{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:2.5rem;
-    margin:0 0 10px;
-    color:var(--ink);
-    letter-spacing:-.01em;
-  }
-  header.top p{
-    max-width:640px;
-    color:var(--text-muted);
-    font-size:1rem;
-    margin:0;
-  }
-  .disclaimer{
-    max-width:1180px;
-    margin:22px auto 0;
-    padding:0 24px;
-  }
-  .disclaimer .box{
-    border:1px solid var(--line);
-    border-left:3px solid var(--accent-red);
-    background:var(--card);
-    padding:12px 16px;
-    font-size:.85rem;
-    color:var(--text-muted);
-    border-radius:2px;
-  }
-  .disclaimer strong{color:var(--text);}
-  main.layout{
-    max-width:1180px;
-    margin:36px auto 0;
-    padding:0 24px;
-    display:grid;
-    grid-template-columns:1.1fr 0.9fr;
-    gap:32px;
-    align-items:start;
-  }
-  @media (max-width: 900px){
-    main.layout{grid-template-columns:1fr;}
-  }
-  .card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:3px;
-  }
-  fieldset{
-    border:none;
-    padding:22px 24px;
-    margin:0;
-    border-bottom:1px solid var(--line);
-  }
-  fieldset:last-of-type{border-bottom:none;}
-  legend{
-    font-family:'IBM Plex Mono', monospace;
-    text-transform:uppercase;
-    letter-spacing:.08em;
-    font-size:.72rem;
-    color:var(--ink-soft);
-    padding:0;
-    margin-bottom:16px;
-  }
-  .field{margin-bottom:14px;}
-  .field:last-child{margin-bottom:0;}
-  .row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
-  .row-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px;}
-  .isbn-input-wrapper {
-    display: flex;
-    gap: 8px;
-  }
-  @media (max-width:520px){
-    .row, .row-3{grid-template-columns:1fr;}
-  }
-  label{
-    display:block;
-    font-size:.8rem;
-    color:var(--text-muted);
-    margin-bottom:5px;
-  }
-  label .req{color:var(--accent-red); margin-left:2px;}
-  input[type=text], input[type=number], input[type=date], select, textarea{
-    width:100%;
-    font-family:'IBM Plex Sans', sans-serif;
-    font-size:.92rem;
-    color: var(--text);
-    background:#2a2a2a;
-    border:1px solid var(--line);
-    border-radius:2px;
-    padding:8px 10px;
-    transition: border-color 0.2s;
-  }
-  input[type=text]:focus, input[type=number]:focus, input[type=date]:focus, select:focus, textarea:focus{
-    border-color: var(--accent-gold);
-    outline: 2px solid var(--accent-gold);
-    outline-offset: 1px;
-  }
-  input::placeholder, textarea::placeholder {
-    color: var(--ink-soft) !important;
-    opacity: 1;
-  }
-  input[type=date]{
-    color-scheme: dark;
-  }
-  textarea{resize:vertical; min-height:70px;}
-  .cover-dropzone {
-    border: 1px dashed var(--line);
-    padding: 15px;
-    text-align: center;
-    background: rgba(0,0,0,0.1);
-    border-radius: 2px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    transition: all 0.2s;
-  }
-  .cover-dropzone:hover {
-    border-color: var(--accent-gold);
-    color: var(--text);
-  }
-  .preview-book-container {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
-    background: rgba(0,0,0,0.15);
-    padding: 12px;
-    border-radius: 2px;
-    border: 1px solid var(--line);
-  }
-  .preview-cover-box {
-    width: 90px;
-    height: 130px;
-    background: #333;
-    border: 1px solid var(--line);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.7rem;
-    color: var(--ink-soft);
-    text-align: center;
-    flex-shrink: 0;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  }
-  .preview-book-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .preview-book-title {
-    font-family: 'Fraunces', serif;
-    font-size: 1.1rem;
-    color: var(--ink);
-    margin: 0 0 4px 0;
-    line-height: 1.2;
-  }
-  .preview-book-meta {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-
-  .isbn-status{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:.75rem;
-    margin-top:5px;
-  }
-  .isbn-status.ok{color:var(--ok);}
-  .isbn-status.bad{color:var(--accent-red);}
-  .isbn-status.neutral{color:var(--text-muted);}
-  .contributor-row{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr auto;
-    gap:14px;
-    align-items:flex-end;
-    margin-bottom:14px;
-    border-bottom: 1px dashed var(--line);
-    padding-bottom: 14px;
-  }
-  .contributor-row:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-  @media (max-width:768px){.contributor-row{grid-template-columns:1fr;}}
-  .contributor-row button{
-    height:36px;
-    align-self:end;
-  }
-  button, .btn-label{
-    font-family:'IBM Plex Sans', sans-serif;
-    cursor:pointer;
-  }
-  .btn-ghost{
-    background:transparent;
-    border:1px solid var(--ink-soft);
-    color:var(--ink-soft);
-    font-size:.82rem;
-    padding:7px 12px;
-    border-radius:2px;
-  }
-  .btn-ghost:hover{background:rgba(255,255,255,0.05);}
-  .btn-label {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid var(--line);
-    color: var(--accent-gold);
-    font-size: .82rem;
-    padding: 8px 12px;
-    border-radius: 2px;
-    background: transparent;
-  }
-  .btn-label:hover {
-    border-color: var(--accent-gold);
-    background: rgba(212, 160, 23, 0.05);
-  }
-  .btn-remove{
-    background:transparent;
-    border:1px solid var(--line);
-    color:var(--accent-red);
-    font-size:.82rem;
-    padding:8px 12px;
-    border-radius:2px;
-    height: 38px;
-    display: inline-flex;
-    align-items: center;
-  }
-  .btn-remove:hover{
-    border-color:var(--accent-red);
-    background: rgba(255, 107, 107, 0.05);
-  }
-  #resetBtn {
-    color: var(--accent-red);
-    border-color: var(--line);
-  }
-  #resetBtn:hover {
-    border-color: var(--accent-red);
-    background: rgba(255, 107, 107, 0.05);
-  }
-  .proof-wrap{
-    position:sticky;
-    top:24px;
-  }
-  .proof{
-    position:relative;
-    background:var(--card);
-    border:1px solid var(--line);
-    border-top:none;
-    clip-path:polygon(0.0% 0%, 5.56% 2%, 11.11% 0%, 16.67% 2%, 22.22% 0%, 27.78% 2%, 33.33% 0%, 38.89% 2%, 44.44% 0%, 50.0% 2%, 55.56% 0%, 61.11% 2%, 66.67% 0%, 72.22% 2%, 77.78% 0%, 83.33% 2%, 88.89% 0%, 94.44% 2%, 100.0% 0%, 100% 100%, 0% 100%);
-    padding:44px 22px 22px;
-    transition: transform 0.2s, background-color 0.2s;
-  }
-  .proof.dragover {
-    background-color: var(--drag-bg);
-    transform: scale(1.01);
-  }
-  .proof::before{
-    content:"BROUILLON";
-    position:absolute;
-    top:46%;
-    left:50%;
-    transform:translate(-50%,-50%) rotate(-18deg);
-    font-family:'Fraunces', serif;
-    font-size:3.4rem;
-    font-weight:600;
-    color:var(--ink);
-    opacity:.06;
-    white-space:nowrap;
-    pointer-events:none;
-  }
-  .proof-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:14px;
-  }
-  .proof-head .eyebrow{margin:0;}
-  .status-pill{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:.7rem;
-    padding:3px 9px;
-    border-radius:20px;
-    border:1px solid var(--line);
-    color:var(--text-muted);
-  }
-  .status-pill.ready{
-    color:var(--ok);
-    border-color:var(--ok);
-  }
-  pre#xmlOutput{
-    position:relative;
-    z-index:1;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:.76rem;
-    line-height:1.55;
-    white-space:pre-wrap;
-    word-break:break-word;
-    max-height:360px;
-    overflow-y:auto;
-    margin:0 0 18px;
-    color:var(--ink-soft);
-  }
-  .tag{color:#8ad6f2;}
-  .val{color:var(--accent-gold);}
-  .checklist{
-    position:relative;
-    z-index:1;
-    list-style:none;
-    padding:0;
-    margin:0 0 18px;
-    font-size:.82rem;
-  }
-  .checklist li{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:3px 0;
-    color:var(--text-muted);
-  }
-  .checklist li.done{color:var(--ok);}
-  .checklist .mark{
-    font-family:'IBM Plex Mono', monospace;
-    width:14px;
-    display:inline-block;
-    color:var(--accent-red);
-  }
-  .checklist li.done .mark{color:var(--ok);}
-  .proof-actions{
-    position:relative;
-    z-index:1;
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-  .btn-primary{
-    background:var(--ink);
-    color:#fff;
-    border:none;
-    padding:10px 16px;
-    border-radius:2px;
-    font-size:.86rem;
-    font-weight:500;
-  }
-  .btn-primary:hover{background:var(--ink-soft);}
-  .btn-primary:disabled{
-    background:#9a9a90;
-    cursor:not-allowed;
-  }
-footer.note {
-    max-width: 800px;
-    margin: 64px auto 0;
-    padding: 24px;
-    border-top: 1px solid var(--line);
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-  }
-  footer.note div {
-    margin-bottom: 8px;
-  }
-  footer.note div:last-of-type {
-    margin-bottom: 0;
-  }
-  footer.note .footer-links {
-    margin-top: 12px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.8rem;
-  }
-  footer.note .footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  footer.note .footer-links a:hover {
-    color: var(--accent-gold);
-  }
-  @media (min-width: 769px) {
-    .contributor-row {
-      align-items: stretch !important;
-    }
-    .contributor-row .btn-remove {
-      margin-top: auto;
-      height: 37px;
-    }
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="top">
@@ -482,13 +23,13 @@ footer.note {
       <span> • </span>
       <a href="pages/about-me.html">A propos de l'auteur</a>
     </nav>
-    <p class="eyebrow">OniXpress - Générateur ONIX 3.0 — v1.6.2</p>
-    <h1>OniXpress — Fiche titre</h1>
+    <p class="eyebrow">Errata - Générateur ONIX 3.0 — v1.8.3</p>
+    <h1>Errata</h1>
     <p>Remplissez une fiche, téléversez ou glissez-déposez un XML existant. Tout reste dans votre navigateur.</p>
   </header>
   <div class="disclaimer">
     <div class="box">
-      <strong>OniXpress v1.6.2 — à lire avant usage professionnel :</strong> ce générateur produit un squelette ONIX 3.0 structurellement correct pour un cas simple. Il ne fait pas de validation XSD complète et la liste de classification ci-dessous est volontairement réduite. Vérifiez les codes auprès des listes officielles EDItEUR avant envoi à un distributeur.
+      <strong>Errata v1.8.3 — à lire avant usage professionnel :</strong> ce générateur produit un squelette ONIX 3.0 structurellement correct pour un cas simple. Il ne fait pas de validation XSD complète et la liste de classification ci-dessous est volontairement réduite. Vérifiez les codes auprès des listes officielles EDItEUR avant envoi à un distributeur.
     </div>
     <div class="box">
       <strong>Une version <em>beta</em></strong> en cours de production, elle apporte une version <strong>plus professionnelle</strong>, elle n'est pas encore parfaitement fonctionnelle mais si vous souhaitez voir et utiliser cette version cliquez ici : <a href="admin/betatestindex.html" target="_blank" rel="noopener noreferrer">Version <em>Beta</em> 2.0.0</a>
@@ -548,6 +89,7 @@ footer.note {
         <div class="field">
           <label for="language">Langue du texte <span class="req">*</span></label>
           <select id="language" required aria-required="true">
+            <option value="">— Choisir une langue —</option>
             <option value="fre" selected>Français</option>
             <option value="eng">Anglais</option>
             <option value="spa">Espagnol</option>
@@ -813,14 +355,14 @@ footer.note {
   </main>
 
   <footer class="note">
-    <div><strong>OniXpress - Version 1.6.2</strong></div>
+    <div><strong>Errata (ex-<em>OniXPress</em>) - Version 1.8.3</strong></div>
     <div>Fiche sauvegardée automatiquement dans votre navigateur (localStorage) — fermez l'onglet sans crainte, vous la retrouverez en revenant ici.</div>
-    <div><strong>OniXpress</strong> est un outil open source, gratuit et respectueux de la vie privée. Aucune donnée saisie ne quitte jamais votre ordinateur.</div>
+    <div><strong>Errata</strong> est un outil open source, gratuit et respectueux de la vie privée. Aucune donnée saisie ne quitte jamais votre ordinateur.</div>
     <div>Normes officielles basées sur les spécifications EDItEUR ONIX 3.0.</div>
     <div class="footer-links">
       <a href="pages/license.html" target="_blank" rel="noopener noreferrer">Licence GNU GPL 3.0</a>
       <div>
-        <a href="https://github.com/Ax4M3/OniXpress" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a>
+        <a href="https://github.com/Ax4M3/Errata" target="_blank" rel="noopener noreferrer">Dépôt GitHub</a>
         <span> • </span>
         <a href="https://piaille.fr/@Axm" target="_blank" rel="noopener noreferrer">Mastodon</a>
         <span> • </span>
@@ -831,7 +373,7 @@ footer.note {
   
 <script>
 (function(){
-  const STORAGE_KEY = 'onixpress-fiche';
+  const STORAGE_KEY = 'errata-fiche';
   const STORAGE_SCHEMA_VERSION = 3;
   const fields = ['isbn','title','subtitle','summary','keywords','subject',
                    'publisher','imprint','collection','pubdate','productForm','price','currency',
@@ -1018,6 +560,27 @@ footer.note {
     renderContributors(); update();
   });
 
+  function getTextContent(node) {
+    return node ? node.textContent.trim() : '';
+  }
+
+  function findNode(parent, tagName, conditionFn) {
+    const nodes = parent.getElementsByTagName(tagName);
+    for (let i = 0; i < nodes.length; i++) {
+      if (conditionFn(nodes[i])) return nodes[i];
+    }
+    return null;
+  }
+
+  function findNodes(parent, tagName, conditionFn) {
+    const nodes = parent.getElementsByTagName(tagName);
+    const result = [];
+    for (let i = 0; i < nodes.length; i++) {
+      if (conditionFn(nodes[i])) result.push(nodes[i]);
+    }
+    return result;
+  }
+
   function processXmlFile(file) {
     if (!file) return;
     const reader = new FileReader();
@@ -1031,67 +594,139 @@ footer.note {
           return;
         }
 
-        const getVal = (tag) => xmlDoc.querySelector(tag) ? xmlDoc.querySelector(tag).textContent.trim() : '';
+        function getNodeWithChildValue(parent, childTag, childValue) {
+          const children = parent.getElementsByTagName(childTag);
+          for (let i = 0; i < children.length; i++) {
+            if (children[i].textContent.trim() === childValue) {
+              return children[i].parentNode;
+            }
+          }
+          return null;
+        }
 
-        els.isbn.value = getVal('ProductIdentifier > IDValue');
-        els.title.value = getVal('TitleElementLevel[text()="01"] ~ TitleText, TitleText');
-        els.subtitle.value = getVal('TitleElementLevel[text()="01"] ~ Subtitle, Subtitle');
-        els.summary.value = getVal('TextContent > Text');
-        els.keywords.value = getVal('Subject[SubjectSchemeIdentifier="20"] > SubjectHeadingText') || '';
-        els.publisher.value = getVal('PublisherName');
-        els.imprint.value = getVal('ImprintName') || '';
-        els.collection.value = getVal('Collection TitleText');
-        els.productForm.value = getVal('ProductForm') || 'BC';
-        els.language.value = getVal('Language > LanguageCode') || 'fre';
-        els.subject.value = getVal('Subject[SubjectSchemeIdentifier="93"] > SubjectCode') || getVal('Subject > SubjectCode');
-        els.availability.value = getVal('ProductAvailability') || '20';
-        els.price.value = getVal('PriceAmount');
-        els.coverUrl.value = getVal('SupportingResource[ResourceContentType="01"] ResourceLink') || '';
+        function getSiblingAfter(node, tagName) {
+          let sibling = node.nextSibling;
+          while (sibling) {
+            if (sibling.nodeType === 1 && sibling.tagName === tagName) {
+              return sibling;
+            }
+            sibling = sibling.nextSibling;
+          }
+          return null;
+        }
 
-        const cc = getVal('CurrencyCode');
-        const reg = getVal('TaxRegionCode') || getVal('CountriesIncluded');
+        const titleElements = xmlDoc.querySelectorAll('TitleElement');
+        let titleText = '';
+        let subtitleText = '';
+        
+        titleElements.forEach(el => {
+          const level = el.querySelector('TitleElementLevel');
+          if (level && level.textContent.trim() === '01') {
+            const titleTextEl = el.querySelector('TitleText');
+            const subtitleEl = el.querySelector('Subtitle');
+            if (titleTextEl) titleText = titleTextEl.textContent.trim();
+            if (subtitleEl) subtitleText = subtitleEl.textContent.trim();
+          }
+        });
+        
+        if (!titleText) {
+          const simpleTitle = xmlDoc.querySelector('TitleText');
+          if (simpleTitle) titleText = simpleTitle.textContent.trim();
+        }
+        if (!subtitleText) {
+          const simpleSubtitle = xmlDoc.querySelector('Subtitle');
+          if (simpleSubtitle) subtitleText = simpleSubtitle.textContent.trim();
+        }
+
+        els.title.value = titleText;
+        els.subtitle.value = subtitleText;
+        const textContent = xmlDoc.querySelector('TextContent');
+        const textNode = textContent ? textContent.querySelector('Text') : null;
+        els.summary.value = getTextContent(textNode);
+        const subject20 = xmlDoc.querySelector('Subject[SubjectSchemeIdentifier="20"]');
+        const keywordsNode = subject20 ? subject20.querySelector('SubjectHeadingText') : null;
+        els.keywords.value = getTextContent(keywordsNode) || '';
+        const publisherNode = xmlDoc.querySelector('PublisherName');
+        els.publisher.value = getTextContent(publisherNode);
+        const imprintNode = xmlDoc.querySelector('ImprintName');
+        els.imprint.value = getTextContent(imprintNode) || '';
+        const collectionNode = xmlDoc.querySelector('Collection');
+        const collectionTitle = collectionNode ? collectionNode.querySelector('TitleText') : null;
+        els.collection.value = getTextContent(collectionTitle);
+        const productFormNode = xmlDoc.querySelector('ProductForm');
+        els.productForm.value = getTextContent(productFormNode) || 'BC';
+        const languageNode = xmlDoc.querySelector('LanguageCode');
+        els.language.value = getTextContent(languageNode) || 'fre';
+        const subject93 = xmlDoc.querySelector('Subject[SubjectSchemeIdentifier="93"]');
+        const subjectCode = subject93 ? subject93.querySelector('SubjectCode') : null;
+        const fallbackSubject = subjectCode ? null : xmlDoc.querySelector('SubjectCode');
+        els.subject.value = getTextContent(subjectCode) || getTextContent(fallbackSubject) || '';
+        const availabilityNode = xmlDoc.querySelector('ProductAvailability');
+        els.availability.value = getTextContent(availabilityNode) || '20';
+        const priceNode = xmlDoc.querySelector('PriceAmount');
+        els.price.value = getTextContent(priceNode);
+        const supportingResource = xmlDoc.querySelector('SupportingResource[ResourceContentType="01"]');
+        const resourceLink = supportingResource ? supportingResource.querySelector('ResourceLink') : null;
+        els.coverUrl.value = getTextContent(resourceLink) || '';
+        const currencyCodeNode = xmlDoc.querySelector('CurrencyCode');
+        const taxRegionNode = xmlDoc.querySelector('TaxRegionCode');
+        const countriesIncludedNode = xmlDoc.querySelector('CountriesIncluded');
+        
+        const cc = getTextContent(currencyCodeNode);
+        const reg = getTextContent(taxRegionNode) || getTextContent(countriesIncludedNode);
         if(cc === 'EUR') {
           els.currency.value = reg === 'BE' ? 'EUR-BE' : 'EUR-FR';
         } else {
           els.currency.value = cc || 'EUR-FR';
         }
-
+        
         const measures = xmlDoc.querySelectorAll('Measure');
         els.height.value = ''; els.width.value = ''; els.weight.value = '';
         measures.forEach(m => {
-          const type = m.querySelector('MeasureType')?.textContent;
-          const val = m.querySelector('Measurement')?.textContent;
+          const typeNode = m.querySelector('MeasureType');
+          const valNode = m.querySelector('Measurement');
+          if (!typeNode || !valNode) return;
+          const type = typeNode.textContent.trim();
+          const val = valNode.textContent.trim();
           if(type === '01') els.height.value = val;
           if(type === '02') els.width.value = val;
           if(type === '08') els.weight.value = val;
         });
-
-        const rawDate = getVal('PublishingDate > Date');
+        const publishingDateNode = xmlDoc.querySelector('PublishingDate');
+        const dateNode = publishingDateNode ? publishingDateNode.querySelector('Date') : null;
+        const rawDate = getTextContent(dateNode);
         if(rawDate && rawDate.length === 8) {
           els.pubdate.value = `${rawDate.slice(0,4)}-${rawDate.slice(4,6)}-${rawDate.slice(6,8)}`;
         } else {
           els.pubdate.value = '';
         }
-
         const xmlContribs = xmlDoc.querySelectorAll('Contributor');
         if (xmlContribs.length > 0) {
           contributors = [];
           xmlContribs.forEach(c => {
+            const namesBeforeKey = c.querySelector('NamesBeforeKey');
+            const keyNames = c.querySelector('KeyNames');
+            const contributorRole = c.querySelector('ContributorRole');
+            const contributorLanguage = c.querySelector('ContributorLanguage');
+            const langCode = contributorLanguage ? contributorLanguage.querySelector('LanguageCode') : null;
+            
             contributors.push({
-              firstname: c.querySelector('NamesBeforeKey')?.textContent.trim() || '',
-              lastname: c.querySelector('KeyNames')?.textContent.trim() || '',
-              role: c.querySelector('ContributorRole')?.textContent.trim() || 'A01',
-              lang: c.querySelector('ContributorLanguage > LanguageCode')?.textContent.trim() || 'eng'
+              firstname: getTextContent(namesBeforeKey) || '',
+              lastname: getTextContent(keyNames) || '',
+              role: getTextContent(contributorRole) || 'A01',
+              lang: getTextContent(langCode) || 'eng'
             });
           });
         }
-
+        
         localCoverDataUrl = '';
         renderContributors();
         update();
+        
+        alert('Fichier XML importé avec succès !');
       } catch (err) {
-        alert("Erreur de parsing lors du traitement du fichier XML.");
-        console.error(err);
+        console.error('Erreur lors du traitement du XML:', err);
+        alert("Erreur de parsing lors du traitement du fichier XML. Veuillez vérifier que le fichier est un XML ONIX 3.0 valide.\n\nErreur: " + err.message);
       }
     };
     reader.readAsText(file);
@@ -1129,6 +764,43 @@ footer.note {
     }
   }
 
+  function getState(){
+    const isbnValidation = validateIsbn(els.isbn.value);
+    const priceNum = parseFloat(els.price.value) || 0;
+    const taxDetails = getTaxDetails(els.currency.value, els.productForm.value);
+    const netPrice = priceNum / (1 + taxDetails.value);
+    
+    return {
+      isbn: els.isbn.value,
+      isbnClean: isbnValidation.clean || '',
+      isbnValid: isbnValidation.state === 'ok',
+      title: els.title.value,
+      subtitle: els.subtitle.value,
+      summary: els.summary.value,
+      keywords: els.keywords.value,
+      subject: els.subject.value,
+      publisher: els.publisher.value,
+      imprint: els.imprint.value,
+      collection: els.collection.value,
+      pubdate: els.pubdate.value,
+      productForm: els.productForm.value,
+      price: priceNum.toFixed(2),
+      currency: els.currency.value,
+      netPrice: netPrice.toFixed(6),
+      taxRate: taxDetails.rate,
+      taxValue: taxDetails.value,
+      taxRegion: taxDetails.region,
+      taxCurrency: taxDetails.currency,
+      geoTag: taxDetails.geoTag,
+      height: els.height.value,
+      width: els.width.value,
+      weight: els.weight.value,
+      availability: els.availability.value,
+      language: els.language.value,
+      coverUrl: els.coverUrl.value
+    };
+  }
+
   function buildXml(state){
     const now = new Date();
     const sentDateTime = now.toISOString().replace(/[-:]/g,'').split('.')[0];
@@ -1139,199 +811,198 @@ footer.note {
     
     const contributorsXml = contributors.filter(c => c.lastname.trim()).map((c,i) => {
       let langXml = (c.role === 'B06' && c.lang) ? `\n        <ContributorLanguage><LanguageRole>02</LanguageRole><LanguageCode>${escapeXml(c.lang)}</LanguageCode></ContributorLanguage>` : '';
-      return `      <Contributor>
-        <SequenceNumber>${i+1}</SequenceNumber>
-        <ContributorRole>${c.role}</ContributorRole>
-        ${c.firstname.trim() ? `<NamesBeforeKey>${escapeXml(c.firstname.trim())}</NamesBeforeKey>\n        ` : ''}<KeyNames>${escapeXml(c.lastname.trim())}</KeyNames>${langXml}
-      </Contributor>`;
+      return `      <Contributor>\n        <SequenceNumber>${i+1}</SequenceNumber>\n        <ContributorRole>${c.role}</ContributorRole>\n        ${c.firstname.trim() ? `<NamesBeforeKey>${escapeXml(c.firstname.trim())}</NamesBeforeKey>\n        ` : ''}<KeyNames>${escapeXml(c.lastname.trim())}</KeyNames>${langXml}\n      </Contributor>`;
     }).join('\n') || `      <Contributor><SequenceNumber>1</SequenceNumber><ContributorRole>A01</ContributorRole><KeyNames>Anonyme</KeyNames></Contributor>`;
 
     const subjectXml = state.subject ? `      <Subject><SubjectSchemeIdentifier>93</SubjectSchemeIdentifier><SubjectCode>${escapeXml(state.subject)}</SubjectCode></Subject>\n` : '';
     const keywordsXml = state.keywords.trim() ? `      <Subject><SubjectSchemeIdentifier>20</SubjectSchemeIdentifier><SubjectHeadingText>${escapeXml(state.keywords.trim())}</SubjectHeadingText></Subject>\n` : '';
-    const publishingDateXml = state.pubdate ? `      <PublishingDate><PublishingDateRole>01</PublishingDateRole><Date dateformat="14">${ymd(state.pubdate)}</Date></PublishingDate>` : '';
-    
-    let measureXml = '';
-    if(state.productForm !== 'ED') {
-      if(state.height) measureXml += `      <Measure><MeasureType>01</MeasureType><Measurement>${state.height}</Measurement><MeasureUnitCode>mm</MeasureUnitCode></Measure>\n`;
-      if(state.width)  measureXml += `      <Measure><MeasureType>02</MeasureType><Measurement>${state.width}</Measurement><MeasureUnitCode>mm</MeasureUnitCode></Measure>\n`;
-      if(state.weight) measureXml += `      <Measure><MeasureType>08</MeasureType><Measurement>${state.weight}</Measurement><MeasureUnitCode>gr</MeasureUnitCode></Measure>\n`;
-    }
-
-    const imprintXml = state.imprint.trim() ? `\n      <Imprint><ImprintName>${escapeXml(state.imprint.trim())}</ImprintName></Imprint>` : '';
-
-    const coverXml = state.coverUrl.trim() ? `\n      <SupportingResource>
-        <ResourceContentType>01</ResourceContentType>
-        <ContentAudience>00</ContentAudience>
-        <ResourceMode>03</ResourceMode>
-        <ResourceVersion>
-          <ResourceForm>02</ResourceForm>
-          <ResourceLink>${escapeXml(state.coverUrl.trim())}</ResourceLink>
-        </ResourceVersion>
-      </SupportingResource>` : '';
+    const publishingDateXml = state.pubdate ? `      <PublishingDate><PublishingDateRole>01</PublishingDateRole><Date dateformat="14">${ymd(state.pubdate)}\n` : '';
 
     return `<?xml version="1.0" encoding="UTF-8"?>
-<ONIXMessage release="3.0" xmlns="http://ns.editeur.org/onix/3.0/reference">
+<ONIXMessage xmlns="http://ns.editeur.org/onix/3.0/reference" release="3.0">
   <Header>
-    <Sender><SenderName>${escapeXml(state.publisher)}</SenderName></Sender>
+    <FromCompany>Errata</FromCompany>
+    <FromPerson>User</FromPerson>
     <SentDateTime>${sentDateTime}</SentDateTime>
+    <MessageNote>Generated by Errata - https://github.com/Ax4M3/Errata</MessageNote>
   </Header>
-  <Product>
+  <Product recordReference="${recordRef}">
     <RecordReference>${recordRef}</RecordReference>
     <NotificationType>03</NotificationType>
-    <ProductIdentifier><ProductIDType>15</ProductIDType><IDValue>${state.isbnClean || ''}</IDValue></ProductIdentifier>
+    <ProductIdentifier>
+      <ProductIDType>15</ProductIDType>
+      <IDValue>${state.isbnClean || '0000000000000'}</IDValue>
+    </ProductIdentifier>
     <DescriptiveDetail>
       <ProductComposition>00</ProductComposition>
       <ProductForm>${state.productForm}</ProductForm>
+      ${state.height ? `<Measure type="01" measurement="${state.height}" unitcode="mm"/>` : ''}
+      ${state.width ? `<Measure type="02" measurement="${state.width}" unitcode="mm"/>` : ''}
+      ${state.weight ? `<Measure type="08" measurement="${state.weight}" unitcode="gr"/>` : ''}
+      <Language><LanguageRole>01</LanguageRole><LanguageCode>${state.language}</LanguageCode></Language>
       <TitleDetail>
         <TitleType>01</TitleType>
         <TitleElement>
           <TitleElementLevel>01</TitleElementLevel>
-          <TitleText>${escapeXml(state.title)}</TitleText>${state.subtitle.trim() ? `\n          <Subtitle>${escapeXml(state.subtitle)}</Subtitle>` : ''}
+          <TitleText>${escapeXml(state.title)}</TitleText>
+          ${state.subtitle ? `<Subtitle>${escapeXml(state.subtitle)}</Subtitle>` : ''}
         </TitleElement>
       </TitleDetail>
-${contributorsXml}
-      <Language><LanguageRole>01</LanguageRole><LanguageCode>${state.language}</LanguageCode></Language>
-${subjectXml}${keywordsXml}${measureXml}    </DescriptiveDetail>
+      ${contributorsXml}
+      ${subjectXml}${keywordsXml}
+    </DescriptiveDetail>
     <CollateralDetail>
-      <TextContent><TextType>03</TextType><ContentAudience>00</ContentAudience><Text textformat="00">${escapeXml(state.summary)}</Text></TextContent>${coverXml}
+      <TextContent>
+        <TextTypeCode>03</TextTypeCode>
+        <ContentAudience>00</ContentAudience>
+        <Text>${escapeXml(state.summary)}</Text>
+      </TextContent>
+      ${state.coverUrl ? `<SupportingResource>\n        <ResourceContentType>01</ResourceContentType>\n        <ResourceMode>03</ResourceMode>\n        <ResourceLink>${escapeXml(state.coverUrl)}</ResourceLink>\n      </SupportingResource>` : ''}
     </CollateralDetail>
     <PublishingDetail>
-      <PublishingStatus>${publishingStatus}</PublishingStatus>${imprintXml}
-      <Publisher><PublishingRole>01</PublishingRole><PublisherName>${escapeXml(state.publisher)}</PublisherName></Publisher>${state.collection.trim() ? `\n      <Collection><CollectionType>10</CollectionType><TitleDetail><TitleType>01</TitleType><TitleElement><TitleElementLevel>02</TitleElementLevel><TitleText>${escapeXml(state.collection)}</TitleText></TitleElement></TitleDetail></Collection>` : ''}
-${publishingDateXml ? '\n' + publishingDateXml : ''}
+      <Imprint>
+        <ImprintName>${escapeXml(state.publisher)}</ImprintName>
+        ${state.imprint ? `<ImprintIdentifier>\n          <ImprintIDType>01</ImprintIDType>\n          <IDValue>${escapeXml(state.imprint)}</IDValue>\n        </ImprintIdentifier>` : ''}
+      </Imprint>
+      ${state.collection ? `<Collection>\n        <CollectionType>10</CollectionType>\n        <TitleDetail>\n          <TitleType>01</TitleType>\n          <TitleElement>\n            <TitleElementLevel>01</TitleElementLevel>\n            <TitleText>${escapeXml(state.collection)}</TitleText>\n          </TitleElement>\n        </TitleDetail>\n      </Collection>` : ''}
+      <Publisher>
+        <PublishingRole>01</PublishingRole>
+        <PublisherName>${escapeXml(state.publisher)}</PublisherName>
+      </Publisher>
+      ${publishingDateXml}
     </PublishingDetail>
     <ProductSupply>
-      <Market><Territory>${taxDetails.geoTag}</Territory></Market>
-      <SupplyDetail>
-        <Supplier><SupplierRole>01</SupplierRole><SupplierName>${escapeXml(state.publisher)}</SupplierName></Supplier>
-        <ProductAvailability>${state.availability}</ProductAvailability>
-        <Price>
-          <PriceType>02</PriceType>
-          <PriceAmount>${formattedPrice}</PriceAmount>
-          <Tax><TaxType>01</TaxType><TaxRatePercent>${taxDetails.rate}</TaxRatePercent><TaxRegionCode>${taxDetails.region}</TaxRegionCode></Tax>
-          <CurrencyCode>${taxDetails.currency}</CurrencyCode>
-        </Price>
-      </SupplyDetail>
+      <Market>
+        <MarketCountry>${taxDetails.region}</MarketCountry>
+        <SupplyDetail>
+          <SupplierName>${escapeXml(state.publisher)}</SupplierName>
+          <ProductAvailability>${state.availability}</ProductAvailability>
+          <Stock>
+            <StockQuantity>9999</StockQuantity>
+          </Stock>
+          <Price>
+            <PriceTypeCode>01</PriceTypeCode>
+            <PriceAmount>${formattedPrice}</PriceAmount>
+            <CurrencyCode>${taxDetails.currency}</CurrencyCode>
+            ${taxDetails.geoTag}
+            <Tax>
+              <TaxType>01</TaxType>
+              <TaxRateCode>VAT</TaxRateCode>
+              <TaxRate>${taxDetails.rate}</TaxRate>
+              <TaxableAmount>${state.netPrice}</TaxableAmount>
+              <TaxAmount>${(parseFloat(state.price) - parseFloat(state.netPrice)).toFixed(6)}</TaxAmount>
+            </Tax>
+          </Price>
+        </SupplyDetail>
+      </Market>
     </ProductSupply>
   </Product>
 </ONIXMessage>`;
   }
 
-  function highlightXml(xml){
-    return escapeXml(xml)
-      .replace(/&lt;(\/?[A-Za-z][A-Za-z0-9]*)((?:\s+[a-zA-Z]+="[^"]*")*)\s*(\/?)&gt;/g, (m, tag, attrs, selfClose) => `&lt;<span class="tag">${tag}</span>${attrs}${selfClose}&gt;`)
-      .replace(/(&lt;[^&]+&gt;)([^&<]+)(?=%lt;)/g, (m, tag, text) => `${tag}<span class="val">${text}</span>`);
-  }
-  
-  function getState(){
-    const isbnCheck = validateIsbn(els.isbn.value);
-    return {
-      isbnRaw: els.isbn.value, isbnClean: isbnCheck.state === 'ok' ? isbnCheck.clean : '', isbnCheck,
-      title: els.title.value, subtitle: els.subtitle.value, summary: els.summary.value, keywords: els.keywords.value,
-      subject: els.subject.value, publisher: els.publisher.value, imprint: els.imprint.value, collection: els.collection.value, pubdate: els.pubdate.value,
-      productForm: els.productForm.value, price: els.price.value, currency: els.currency.value,
-      height: els.height.value, width: els.width.value, weight: els.weight.value, availability: els.availability.value, language: els.language.value,
-      coverUrl: els.coverUrl.value
-    };
-  }
-
   function update(){
     const state = getState();
-    logisticsRow.style.display = state.productForm === 'ED' ? 'none' : 'grid';
-    isbnStatus.textContent = state.isbnCheck.msg;
-    isbnStatus.className = 'isbn-status ' + state.isbnCheck.state;
-    
-    const checks = [
-      { label:'ISBN-13 valide', ok: state.isbnCheck.state === 'ok' },
-      { label:'Titre renseigné', ok: state.title.trim().length > 0 },
-      { label:'Au moins un contributeur (Nom)', ok: contributors.some(c => c.lastname.trim().length > 0) },
-      { label:'Éditeur renseigné', ok: state.publisher.trim().length > 0 },
-      { label:'Date de parution', ok: state.pubdate.trim().length > 0 },
-      { label:'Prix renseigné', ok: parseFloat(state.price) > 0 }
-    ];
-    
-    checklistEl.innerHTML = checks.map(c => `<li class="${c.ok?'done':''}"><span class="mark">${c.ok?'✓':'○'}</span>${c.label}</li>`).join('');
-    
-    const priceEl = document.getElementById('priceCalculated');
-    const inputPrice = parseFloat(state.price);
-    if (!isNaN(inputPrice) && inputPrice > 0) {
-      const taxInfo = getTaxDetails(state.currency, state.productForm);
-      const priceHT = inputPrice / (1 + taxInfo.value);
-      const tvaMontant = inputPrice - priceHT;
-      
-      if (taxInfo.value > 0) {
-        priceEl.textContent = `Soit ${priceHT.toFixed(2)} ${taxInfo.currency} HT (TVA ${taxInfo.rate}% : ${tvaMontant.toFixed(2)} ${taxInfo.currency})`;
-      } else {
-        priceEl.textContent = `Soit ${priceHT.toFixed(2)} ${taxInfo.currency} HT (Pas de taxe)`;
-      }
-    } else {
-      priceEl.textContent = '';
-    }
-    
-    const allOk = checks.every(c => c.ok);
-    statusPill.textContent = allOk ? 'prêt' : 'incomplet';
-    statusPill.className = 'status-pill' + (allOk ? ' ready' : '');
-    downloadBtn.disabled = !allOk; copyBtn.disabled = !allOk;
-    
-    const xml = buildXml(state);
-    xmlOutput.innerHTML = highlightXml(xml);
+    const saveData = { schema: STORAGE_SCHEMA_VERSION };
+    fields.forEach(f => saveData[f] = els[f].value);
+    saveData.contributors = contributors;
+    saveData.coverUrl = state.coverUrl;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData)); } catch(e){}
+    const isbnValid = validateIsbn(els.isbn.value);
+    isbnStatus.className = 'isbn-status ' + isbnValid.state;
+    isbnStatus.textContent = isbnValid.msg;
     
     updateCoverPreview();
     
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        schemaVersion: STORAGE_SCHEMA_VERSION,
-        values: fields.reduce((acc,id) => (acc[id] = els[id].value, acc), {}),
-        contributors,
-        localCoverDataUrl
-      }));
-    } catch(e){}
+    const checks = [
+      { id:'isbn', done: state.isbnValid, label:'ISBN-13 valide' },
+      { id:'title', done: state.title.trim().length > 0, label:'Titre saisi' },
+      { id:'publisher', done: state.publisher.trim().length > 0, label:'Éditeur saisi' },
+      { id:'pubdate', done: state.pubdate.length > 0, label:'Date de parution' },
+      { id:'price', done: parseFloat(state.price) > 0, label:'Prix > 0' },
+      { id:'contrib', done: contributors.some(c => c.lastname.trim().length > 0), label:'Au moins un auteur' },
+      { id:'language', done: state.language.length > 0, label:'Langue choisie' }
+    ];
+    
+    checklistEl.innerHTML = checks.map(c => 
+      `<li class="${c.done?'done':''}">
+        <span class="mark">${c.done?'✓':'✗'}</span>
+        ${c.label}
+      </li>`
+    ).join('');
+    
+    const allDone = checks.every(c => c.done);
+    statusPill.textContent = allDone ? 'prêt' : 'incomplet';
+    statusPill.className = 'status-pill ' + (allDone ? 'ready' : '');
+    
+    const xml = buildXml(state);
+    xmlOutput.textContent = xml;
+    
+    downloadBtn.disabled = !allDone;
+    copyBtn.disabled = !allDone;
+    
+    downloadBtn.onclick = () => {
+      const blob = new Blob([xml], {type:'application/xml'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `onix_${state.isbnClean || 'fiche'}_${new Date().toISOString().slice(0,10)}.xml`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    };
+    
+    copyBtn.onclick = async () => {
+      try {
+        await navigator.clipboard.writeText(xml);
+        copyError.textContent = '';
+      } catch(e){
+        copyError.textContent = 'Échec de la copie';
+      }
+    };
+    
+    const priceCalculated = document.getElementById('priceCalculated');
+    if(priceCalculated) {
+      const taxDetails = getTaxDetails(state.currency, state.productForm);
+      const net = (parseFloat(state.price) / (1 + taxDetails.value)).toFixed(2);
+      const tax = (parseFloat(state.price) - parseFloat(net)).toFixed(2);
+      priceCalculated.textContent = `Net: ${net} € + TVA (${taxDetails.rate}%): ${tax} €`;
+    }
+    
+    if(logisticsRow) {
+      logisticsRow.style.display = state.productForm === 'ED' ? 'none' : 'grid';
+    }
   }
 
-  function restore(){
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      if(!saved || saved.schemaVersion !== STORAGE_SCHEMA_VERSION) return;
-      fields.forEach(id => { if(saved.values[id]) els[id].value = saved.values[id]; });
-      if(Array.isArray(saved.contributors)) contributors = saved.contributors;
-      if(saved.localCoverDataUrl) localCoverDataUrl = saved.localCoverDataUrl;
-    } catch(e){}
-  }
-
-  document.getElementById('resetBtn').addEventListener('click', () => {
-    if(!confirm('Effacer la fiche ?')) return;
-    fields.forEach(id => els[id].value = '');
-    contributors = [{ firstname:'', lastname: '', role:'A01', lang: 'eng' }];
-    localCoverDataUrl = '';
-    renderContributors(); update();
-  });
-
-  downloadBtn.addEventListener('click', () => {
-    const state = getState();
-    const blob = new Blob([buildXml(state)], { type:'application/xml' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = state.isbnClean ? `${state.isbnClean}.xml` : 'onix.xml';
-    a.click();
-  });
-
-  copyBtn.addEventListener('click', () => {
-    copyError.textContent = '';
-    navigator.clipboard.writeText(buildXml(getState()))
-      .then(() => {
-        copyBtn.textContent = '✓ Copié !';
-        setTimeout(() => copyBtn.textContent = 'Copier le XML', 2000);
-      })
-      .catch((err) => {
-        console.error(err);
-        copyError.textContent = "Erreur d'accès au presse-papier.";
-      });
-  });
-
-  fields.forEach(id => els[id]?.addEventListener('input', update));
-  fields.forEach(id => els[id]?.addEventListener('change', update));
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if(saved) {
+      const data = JSON.parse(saved);
+      if(data.schema === STORAGE_SCHEMA_VERSION) {
+        fields.forEach(f => {
+          if(data[f] !== undefined && els[f]) els[f].value = data[f];
+        });
+        if(data.contributors) contributors = data.contributors;
+        renderContributors();
+      }
+    }
+  } catch(e) {}
   
-  restore();
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if(confirm('Effacer tous les champs ?')) {
+      fields.forEach(f => els[f].value = '');
+      contributors = [{ firstname:'', lastname: '', role:'A01', lang: 'eng' }];
+      localCoverDataUrl = '';
+      renderContributors();
+      update();
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  });
+  
+  fields.forEach(f => {
+    if(els[f]) els[f].addEventListener('input', update);
+  });
+  
   renderContributors();
   update();
 })();

@@ -3,315 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OniXpress — Catégories Thema : Guide OniXpress</title>
-<meta name="description" content="Parcourez les catégories de la classification Thema utilisées par OniXpress pour générer le champ Subject de vos fiches ONIX 3.0.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231A1A1A'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='%23D4A017' font-family='serif'%3EO%3C/text%3E%3C/svg%3E">
+<title>Errata — Catégories Thema : Guide Errata</title>
+<meta name="description" content="Parcourez les catégories de la classification Thema utilisées par Errata pour générer le champ Subject de vos fiches ONIX 3.0.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231A1A1A'/%3E%3Ctext x='50' y='68' text-anchor='middle' fill='%23D4A017' font-family='serif'%3E%3Ctspan font-size='58'%3EE%3C/tspan%3E%3Ctspan font-size='44'%3Ea%3C/tspan%3E%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles.css">
-
-<style>
-  :root{
-    --paper:#1A1A1A;
-    --card:#252525;
-    --ink:#E0E0E0;
-    --ink-soft:#A0A0A0;
-    --accent-red:#FF6B6B;
-    --accent-gold:#D4A017;
-    --line:#404040;
-    --text:#F0F0F0;
-    --text-muted:#B0B0B0;
-    --ok:#66BB6A;
-  }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--paper);
-    color:var(--text);
-    font-family:'IBM Plex Sans', sans-serif;
-    line-height:1.6;
-    padding:0 0 80px;
-  }
-  a{
-    color:var(--accent-gold);
-    text-decoration:none;
-    transition:color 0.2s;
-  }
-  a:hover{
-    color:var(--ink);
-    text-decoration:underline;
-  }
-
-  header.top{
-    max-width:800px;
-    margin:0 auto;
-    padding:56px 24px 28px;
-  }
-  .top-nav {
-    display: flex;
-    justify-content: flex-end;
-    gap: 16px;
-    margin-bottom: 20px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .top-nav a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .top-nav a:hover {
-    color: var(--accent-gold);
-  }
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    text-transform:uppercase;
-    letter-spacing:.12em;
-    font-size:.72rem;
-    color:var(--accent-gold);
-    margin:0 0 10px;
-  }
-  h1{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:2.5rem;
-    margin:0 0 10px;
-    color:var(--ink);
-    letter-spacing:-.01em;
-  }
-  h2{
-    font-family:'Fraunces', serif;
-    font-size:1.6rem;
-    font-weight:500;
-    color:var(--ink);
-    margin:40px 0 16px;
-    border-bottom:1px solid var(--line);
-    padding-bottom:8px;
-  }
-  h3{
-    font-family:'IBM Plex Sans', sans-serif;
-    font-size:1.15rem;
-    font-weight:600;
-    color:var(--accent-gold);
-    margin:24px 0 12px;
-  }
-
-  main.content{
-    max-width:800px;
-    margin:0 auto;
-    padding:0 24px;
-  }
-
-  p{
-    color:var(--text);
-    margin:0 0 16px;
-  }
-
-  ul, ol{
-    margin:0 0 24px;
-    padding-left:24px;
-    color:var(--text);
-  }
-  li{
-    margin-bottom:8px;
-  }
-
-  blockquote {
-    border-left:3px solid var(--accent-gold);
-    background:var(--card);
-    margin:24px 0;
-    padding:16px 20px;
-    font-style:italic;
-    color:var(--text-muted);
-    border-radius:2px;
-  }
-
-  td.code {
-    font-family:'IBM Plex Mono', monospace;
-    color:var(--accent-red);
-  }
-
-  .btn-back {
-    display:inline-block;
-    font-family:'IBM Plex Sans', sans-serif;
-    background:var(--card);
-    border:1px solid var(--line);
-    color:var(--ink);
-    padding:10px 20px;
-    border-radius:3px;
-    font-size:.88rem;
-    font-weight:500;
-    margin-bottom:20px;
-  }
-  .btn-back:hover {
-    background:rgba(255,255,255,0.05);
-    border-color:var(--ink-soft);
-  }
-  .thema-search{
-    width:100%;
-    background:var(--card);
-    border:1px solid var(--line);
-    color:var(--text);
-    font-family:'IBM Plex Sans', sans-serif;
-    font-size:1rem;
-    padding:12px 16px;
-    border-radius:4px;
-    margin:8px 0 28px;
-  }
-  .thema-search::placeholder{ color:var(--ink-soft); }
-  .thema-search:focus{
-    outline:2px solid var(--accent-gold);
-    outline-offset:1px;
-    border-color:var(--accent-gold);
-  }
-  .thema-empty{
-    display:none;
-    color:var(--text-muted);
-    font-style:italic;
-    margin:12px 0 24px;
-  }
-  .thema-tree{
-    border:1px solid var(--line);
-    border-radius:6px;
-    overflow:hidden;
-    margin:0 0 32px;
-  }
-  details.cat{
-    border-bottom:1px solid var(--line);
-    background:var(--card);
-  }
-  details.cat:last-child{ border-bottom:none; }
-  details.cat[open] > summary{
-    background:rgba(212,160,23,0.08);
-  }
-  details.cat > summary{
-    list-style:none;
-    cursor:pointer;
-    padding:14px 18px;
-    display:flex;
-    align-items:baseline;
-    gap:12px;
-    font-weight:500;
-    color:var(--ink);
-  }
-  details.cat > summary::-webkit-details-marker{ display:none; }
-  details.cat > summary::before{
-    content:"▸";
-    color:var(--accent-gold);
-    font-size:.8rem;
-    transition:transform 0.15s;
-    flex-shrink:0;
-    width:10px;
-  }
-  details.cat[open] > summary::before{
-    transform:rotate(90deg);
-  }
-  .cat-code{
-    font-family:'IBM Plex Mono', monospace;
-    color:var(--accent-red);
-    font-size:.85rem;
-    flex-shrink:0;
-  }
-  .cat-heading{ flex:1; }
-  .cat-note{
-    font-size:.78rem;
-    color:var(--text-muted);
-    font-weight:400;
-  }
-  .cat-body{
-    padding:4px 18px 18px 44px;
-  }
-  .cat-desc{
-    color:var(--text-muted);
-    font-size:.9rem;
-    margin:0 0 14px;
-  }
-  .subcat-list{
-    list-style:none;
-    margin:0;
-    padding:0;
-  }
-  .subcat-list li{
-    display:flex;
-    gap:12px;
-    align-items:baseline;
-    padding:7px 0;
-    border-top:1px dashed var(--line);
-    margin:0;
-  }
-  .subcat-list li:first-child{ border-top:none; }
-  .subcat-code{
-    font-family:'IBM Plex Mono', monospace;
-    color:var(--accent-red);
-    font-size:.82rem;
-    min-width:52px;
-    flex-shrink:0;
-  }
-  .subcat-label{
-    color:var(--text);
-    font-size:.92rem;
-  }
-  .used-tag{
-    display:inline-block;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:.65rem;
-    text-transform:uppercase;
-    letter-spacing:.05em;
-    color:var(--ok);
-    border:1px solid var(--ok);
-    border-radius:3px;
-    padding:1px 6px;
-    margin-left:8px;
-  }
-  .more-link{
-    display:block;
-    margin-top:12px;
-    font-size:.85rem;
-  }
-
-  .source-note{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:4px;
-    padding:16px 20px;
-    font-size:.85rem;
-    color:var(--text-muted);
-    margin:32px 0;
-  }
-  .source-note strong{ color:var(--ink); }
-
-footer.note {
-    max-width: 800px;
-    margin: 64px auto 0;
-    padding: 24px;
-    border-top: 1px solid var(--line);
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-  }
-  footer.note div {
-    margin-bottom: 8px;
-  }
-  footer.note div:last-of-type {
-    margin-bottom: 0;
-  }
-  footer.note .footer-links {
-    margin-top: 12px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.8rem;
-  }
-  footer.note .footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  footer.note .footer-links a:hover {
-    color: var(--accent-gold);
-  }
-</style>
+<link rel="stylesheet" href="./stylesthema.css">
 </head>
 <body>
 
@@ -324,7 +22,7 @@ footer.note {
       <a href="about-me.html">A propos de l'auteur</a>
     </nav>
   <a href="../index.html" class="btn-back">← Retour au Générateur</a>
-  <p class="eyebrow">Classification internationale du livre — OniXpress v1.6.2</p>
+  <p class="eyebrow">Classification internationale du livre — Errata v1.6.2</p>
   <h1>Les catégories Thema (Liste Étendue)</h1>
 </header>
 
@@ -332,10 +30,10 @@ footer.note {
   <p><strong>Thema</strong> est le système de classification thématique du livre géré par EDItEUR, l'organisme international qui maintient également la norme ONIX. Il remplace progressivement les anciennes classifications nationales (CLIL en France, BIC au Royaume-Uni) et permet à un même code de garder son sens d'un pays à l'autre, quelle que soit la langue.</p>
 
   <blockquote>
-    « Thema compte une dizaine de grands groupes de sujets (A à Y) configurés dans la liste étendue d'OniXpress, simplifiant la saisie de vos métadonnées ONIX 3.0. »
+    « Thema compte une dizaine de grands groupes de sujets (A à Y) configurés dans la liste étendue d'Errata, simplifiant la saisie de vos métadonnées ONIX 3.0. »
   </blockquote>
 
-  <p>Cette page reprend, sous une forme parcourable proche du <a href="https://ns.editeur.org/thema/fr" target="_blank" rel="noopener noreferrer">navigateur officiel d'EDItEUR</a>, les catégories que le champ « Catégorie (Thema — liste étendue) » d'OniXpress propose actuellement, replacées dans leur famille d'origine. Utilisez la recherche ci-dessous ou dépliez une famille pour l'explorer.</p>
+  <p>Cette page reprend, sous une forme parcourable proche du <a href="https://ns.editeur.org/thema/fr" target="_blank" rel="noopener noreferrer">navigateur officiel d'EDItEUR</a>, les catégories que le champ « Catégorie (Thema — liste étendue) » d'Errata propose actuellement, replacées dans leur famille d'origine. Utilisez la recherche ci-dessous ou dépliez une famille pour l'explorer.</p>
 
   <input type="text" class="thema-search" id="thema-search" placeholder="Rechercher une catégorie (ex : policier, jeunesse, biographie, cuisine…)" aria-label="Rechercher une catégorie Thema">
   <p class="thema-empty" id="thema-empty">Aucune catégorie ne correspond à votre recherche.</p>
@@ -346,7 +44,7 @@ footer.note {
       <summary>
         <span class="cat-code">F</span>
         <span class="cat-heading">Fiction et sujets connexes</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Romans et récits de fiction pour lecteurs adultes, tous genres confondus.</p>
@@ -374,7 +72,7 @@ footer.note {
       <summary>
         <span class="cat-code">Y</span>
         <span class="cat-heading">Jeunesse</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Livres de fiction et documentaires pour enfants et adolescents.</p>
@@ -398,7 +96,7 @@ footer.note {
       <summary>
         <span class="cat-code">D/S</span>
         <span class="cat-heading">Biographie, littérature et critique</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Ouvrages biographiques, études critiques et essais littéraires.</p>
@@ -418,7 +116,7 @@ footer.note {
       <summary>
         <span class="cat-code">J</span>
         <span class="cat-heading">Société et sciences humaines</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Sciences sociales, questions politiques, éducation et études culturelles.</p>
@@ -439,7 +137,7 @@ footer.note {
       <summary>
         <span class="cat-code">A</span>
         <span class="cat-heading">Arts</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Beaux-arts, architecture, design graphique, photographie et histoire de l'art.</p>
@@ -460,7 +158,7 @@ footer.note {
       <summary>
         <span class="cat-code">W</span>
         <span class="cat-heading">Cuisine, gastronomie et nature</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Livres de recettes, gastronomie régionale, boissons et guides de nutrition.</p>
@@ -479,7 +177,7 @@ footer.note {
       <summary>
         <span class="cat-code">R/T</span>
         <span class="cat-heading">Nature et environnement</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Écologie, gestion de l'environnement, flore, faune et art du jardinage.</p>
@@ -497,7 +195,7 @@ footer.note {
       <summary>
         <span class="cat-code">K/L</span>
         <span class="cat-heading">Économie, entreprise et droit</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Gestion d'entreprise, marketing, théories économiques et textes juridiques.</p>
@@ -521,7 +219,7 @@ footer.note {
       <summary>
         <span class="cat-code">P/U</span>
         <span class="cat-heading">Sciences et technique</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Sciences dures, mathématiques fondamentales, ingénierie et informatique.</p>
@@ -541,7 +239,7 @@ footer.note {
       <summary>
         <span class="cat-code">G/C</span>
         <span class="cat-heading">Référence et éducation</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Ouvrages de référence, apprentissage des langues et guides pédagogiques.</p>
@@ -558,7 +256,7 @@ footer.note {
       <summary>
         <span class="cat-code">N</span>
         <span class="cat-heading">Histoire</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Histoire mondiale, régionale, militaire et récits de périodes historiques spécifiques.</p>
@@ -576,7 +274,7 @@ footer.note {
       <summary>
         <span class="cat-code">V</span>
         <span class="cat-heading">Santé et bien-être</span>
-        <span class="cat-note">utilisée dans OniXpress</span>
+        <span class="cat-note">utilisée dans Errata</span>
       </summary>
       <div class="cat-body">
         <p class="cat-desc">Développement personnel, psychologie, bien-être et santé publique.</p>
@@ -591,14 +289,14 @@ footer.note {
   </div>
 
   <div class="source-note">
-    <p><strong>Note sur la synchronisation :</strong> Cette liste correspond rigoureusement à la configuration du sélecteur <code>#subject</code> de l'application principale <strong>OniXpress v1.6.2</strong>. Tout code sélectionné ici générera la balise <code>&lt;Subject&gt;</code> correspondante au format international standard ONIX 3.0.</p>
+    <p><strong>Note sur la synchronisation :</strong> Cette liste correspond rigoureusement à la configuration du sélecteur <code>#subject</code> de l'application principale <strong>Errata v1.6.2</strong>. Tout code sélectionné ici générera la balise <code>&lt;Subject&gt;</code> correspondante au format international standard ONIX 3.0.</p>
   </div>
 </main>
 
 <footer class="note">
-    <div>OniXpress — Outil open-source pour l'édition indépendante</div>
+    <div>Errata — Outil open-source pour l'édition indépendante</div>
     <div class="footer-links">
-      <a href="https://github.com/AxM3/OniXpress" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://github.com/AxM3/Errata" target="_blank" rel="noopener noreferrer">GitHub</a>
       <span> • </span>
       <a href="https://mamot.fr/@axm" target="_blank" rel="noopener noreferrer">Mastodon</a>
       <span> • </span>
