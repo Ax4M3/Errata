@@ -24,7 +24,8 @@
       <a href="pages/about-me.html">A propos de l'auteur</a>
     </nav>
     <p class="eyebrow">Errata - Générateur ONIX 3.0 — v1.8.3</p>
-    <h1>Errata</h1>
+    <h1 class="title-logo">
+      <span class="gold">E</span>rrat<span class="gold">a</span></h1>
     <p>Remplissez une fiche, téléversez ou glissez-déposez un XML existant. Tout reste dans votre navigateur.</p>
   </header>
   <div class="disclaimer">
@@ -265,6 +266,7 @@
           <div class="field">
             <label for="productForm">Format</label>
             <select id="productForm">
+              <option value="" selected>— Choisir un format —</option>
               <option value="BC">Broché</option>
               <option value="BB">Relié</option>
               <option value="ED">Numérique (ePub / PDF)</option>
@@ -303,6 +305,7 @@
           <div class="field">
             <label for="currency">Devise &amp; Région de Taxe</label>
             <select id="currency">
+              <option value="" selected>— Choisir une devise/Région —</option>
               <option value="EUR-FR">EUR (TVA France - 5.5% / 4%)</option>
               <option value="EUR-BE">EUR (TVA Belgique - 6%)</option>
               <option value="CHF">CHF (TVA Suisse - 2.6%)</option>
@@ -315,6 +318,7 @@
         <div class="field">
           <label for="availability">Disponibilité commerciale</label>
           <select id="availability">
+            <option value="" selected>— Choisir une disponibilité —</option>
             <option value="20">Disponible (Mise en vente générale)</option>
             <option value="10">À paraître (Précommande)</option>
             <option value="40">Disponibilité incertaine / Réimprimer</option>

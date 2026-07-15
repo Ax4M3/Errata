@@ -57,6 +57,12 @@
     color:var(--accent-gold);
     margin:0 0 10px;
   }
+  .title-logo{
+    color: var(--text-muted);
+  }
+  .title-logo .gold{
+    color: var(--accent-gold);
+  }
     .btn-back {
     display:inline-block;
     font-family:'IBM Plex Sans', sans-serif;
