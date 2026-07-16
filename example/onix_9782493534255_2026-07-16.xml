@@ -2,7 +2,7 @@
 <ONIXMessage xmlns="http://ns.editeur.org/onix/3.0/reference" release="3.0">
   <Header>
     <FromCompany>Errata</FromCompany>
-    <SentDateTime>20260716203207Z</SentDateTime>
+    <SentDateTime>20260716203739Z</SentDateTime>
   </Header>
   <Product recordReference="REF-9782493534255">
     <RecordReference>REF-9782493534255</RecordReference>
@@ -14,9 +14,9 @@
     <DescriptiveDetail>
       <ProductComposition>10</ProductComposition>
       <ProductForm>BC</ProductForm>
-      <Measure type="01" measurement="205" unitcode="mm"/>
-      <Measure type="02" measurement="140" unitcode="mm"/>
-      <Measure type="08" measurement="185" unitcode="gr"/>
+      
+      
+      
       <Language><LanguageRole>01</LanguageRole><LanguageCode>fre</LanguageCode></Language>
       <TitleDetail>
         <TitleType>01</TitleType>
@@ -66,7 +66,10 @@
     <PublishingDetail>
       <Imprint>
         <ImprintName>Burn Aout</ImprintName>
-        
+        <ImprintIdentifier>
+          <ImprintIDType>01</ImprintIDType>
+          <IDValue>Burn Aout</IDValue>
+        </ImprintIdentifier>
       </Imprint>
       <Collection>
         <CollectionType>10</CollectionType>
@@ -90,7 +93,7 @@
         <MarketCountry>FR</MarketCountry>
         <SupplyDetail>
           <SupplierName>Burn Aout</SupplierName>
-          <ProductAvailability></ProductAvailability>
+          <ProductAvailability>20</ProductAvailability>
           <Stock>
             <StockQuantityCode>00</StockQuantityCode>
           </Stock>
