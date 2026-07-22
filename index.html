@@ -13,6 +13,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script src="data/thema_tree.js"></script>
+<script src="data/contributor_roles.js"></script>
+<script src="data/languages.js"></script>
 </head>
 <body>
   <header class="top">
@@ -21,7 +24,7 @@
       <span> • </span>
       <a href="https://github.com/Ax4M3/KartoLibr">Dépôt du code</a>
     </nav>
-    <p class="eyebrow">KartoLibr - Générateur ONIX 3.0 — v2.0.0</p>
+    <p class="eyebrow">KartoLibr - Générateur ONIX 3.0</p>
     <h1 class="title-logo">
       <img src="assets/icon.png" alt="KartoLibr" class="logo" style="height: 45px; width: auto; vertical-align: middle;">
       <span class="gold">K</span>arto<span class="gold">L</span>ibr</h1>
@@ -29,10 +32,8 @@
   </header>
   <div class="disclaimer">
     <div class="box">
-      <strong>KartoLibr v2.0.0 — à lire avant usage professionnel :</strong> ce générateur produit un squelette ONIX 3.0 structurellement correct pour un cas simple. Il ne fait pas de validation XSD complète et la liste de classification ci-dessous est volontairement réduite. Vérifiez les codes auprès des listes officielles EDItEUR avant envoi à un distributeur.
-    </div>
-    <div class="box">
-      <strong>Vérification :</strong> Vous pouvez vérifier le fichier XML généré grâce à l'outil <a href="https://www.xmlvalidation.com/" target="_blank" rel="noopener noreferrer">XLM validation</a>
+      <strong>À lire avant usage professionnel :</strong> ce générateur produit un squelette ONIX 3.0 structurellement correct pour un cas simple. Il ne fait pas de validation XSD complète et la liste de classification ci-dessous est volontairement réduite. Vérifiez les codes auprès des listes officielles EDItEUR avant envoi à un distributeur.
+      <strong>Vérification :</strong> Vous pouvez vérifier le fichier XML généré grâce à l'outil <a href="https://www.xmlvalidation.com/" target="_blank" rel="noopener noreferrer">XML validation</a>
     </div>
   </div>
   <main class="layout">
@@ -56,12 +57,56 @@
           <input type="text" id="subtitle" placeholder="Facultatif">
         </div>
       </fieldset>
+
       <fieldset>
-        <legend>Contributeur.ice.s</legend>
+        <legend>Composition du produit</legend>
+        <div class="field">
+          <label for="productComposition">Composition du produit</label>
+          <select id="productComposition">
+            <option value="00" selected>Produit en un seul article</option>
+            <option value="01">Non vendu séparément</option>
+            <option value="10">Produit en plusieurs articles</option>
+            <option value="11">Ensemble en parties distinctes</option>
+            <option value="20">Usage commercial uniquement</option>
+            <option value="30">Pack strictement commercial</option>
+            <option value="31">Pack à plusieurs éléments</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="notificationType">Type de notification</label>
+          <select id="notificationType">
+            <option value="01">À paraître</option>
+            <option value="02">À paraître (confirmé)</option>
+            <option value="03" selected>Annonce confirmée à la publication</option>
+            <option value="04">Mise à jour (partielle)</option>
+            <option value="05">Suppression</option>
+            <option value="88">Test de mise à jour (partiel)</option>
+            <option value="89">Enregistrement test</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="publishingStatus">Statut de publication</label>
+          <select id="publishingStatus">
+            <option value="04" selected>Actif</option>
+            <option value="01">Annulé</option>
+            <option value="02">Inactif</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Contributeur.ice.s <span class="req">*</span></legend>
         <div id="contributors"></div>
-        <div style="font-size: .75rem; color: var(--text-muted); margin-top: 4px;"><em> > Pour un Pseudo ou un ouvrage anonyme, mettez simplement le pseudo ou "Anonyme" dans le champs "Nom".</em></div>
+        <div style="font-size: .75rem; color: var(--text-muted); margin-top: 4px;">
+          <em>
+            * Pour un pseudo, mettez le pseudo dans le champ "Nom".
+            Pour une œuvre anonyme, laissez le champ "Nom" vide.
+            <strong>Au moins un contributeur est requis.</strong>
+          </em>
+        </div>
         <button type="button" class="btn-ghost" id="addContributor" style="margin-top:14px;">+ Ajouter un contributeur</button>
       </fieldset>
+
       <fieldset>
         <legend>Couverture &amp; Visuels</legend>
         <div class="field">
@@ -77,6 +122,7 @@
           <input type="file" id="coverLocalFile" accept="image/jpeg,image/png" style="display:none;">
         </div>
       </fieldset>
+
       <fieldset>
         <legend>Description</legend>
         <div class="field">
@@ -114,17 +160,55 @@
           </select>
         </div>
       </fieldset>
+
       <fieldset>
-        <legend>Classification</legend>
-        <div style="font-size: .75rem; color: var(--accent-red); margin-top: 4px;"><strong>Information (22 juillet 2026)</strong> : Cette classification THEMA est <strong>invalide</strong>, la fonction est désactivée le temps que cela soit corrigé. Merci de votre compréhension.</a></div> 
-        <div class="field">
-          <label for="subject">Catégorie (Thema — liste étendue)</label>
-          <select id="subject">
-            <option value="">— Choisir une catégorie —</option>
-          </select>
-          <div style="font-size: .75rem; color: var(--text-muted); margin-top: 4px;">Pour plus d'aide pour savoir quelle catégorie utiliser, veuillez consulter le <a href="https://ns.editeur.org/thema/fr" target="_blank" rel="noopener noreferrer">guide officiel d'EDItEUR</a>.</div>
+        <legend>Classification (Thema 1.6) *</legend>
+        <div class="row">
+          <div class="field">
+            <label for="subjectL1">Groupe principal</label>
+            <select id="subjectL1">
+              <option value="">— Choisir un groupe —</option>
+            </select>
+          </div>
+          <div class="field" id="subjectL2Wrap" style="display:none;">
+            <label for="subjectL2">Sous-groupe</label>
+            <select id="subjectL2">
+              <option value="">— Choisir un sous-groupe —</option>
+            </select>
+          </div>
         </div>
+        <div class="row" id="subjectL3Row" style="display:none;">
+          <div class="field" id="subjectL3Wrap" style="display:none;">
+            <label for="subjectL3">Sous-sous-groupe</label>
+            <select id="subjectL3">
+              <option value="">— Choisir un sous-sous-groupe —</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" id="subjectL4Row" style="display:none;">
+          <div class="field" id="subjectL4Wrap" style="display:none;">
+            <label for="subjectL4">Sous-sous-sous-groupe</label>
+            <select id="subjectL4">
+              <option value="">— Choisir un sous-sous-sous-groupe —</option>
+            </select>
+          </div>
+        </div>
+        <div class="field" style="margin-top:6px;">
+          <div style="font-family:'IBM Plex Mono', monospace; font-size:.8rem; color:var(--text-muted);">
+            Code Thema retenu : <strong id="subjectCodeDisplay">—</strong>
+            <span id="subjectLabelDisplay"></span>
+          </div>
+        <div style="font-size: .75rem; color: var(--accent-red); margin-top: 4px;">
+          <em>
+            * Liste incomplète, ayant uniquement quelques catégories.
+            <strong>D'autres catégories seront vites ajoutées.</strong>
+          </em>
+        </div>
+        </div>
+        <input type="hidden" id="subject">
+        <div style="font-size: .75rem; color: var(--text-muted); margin-top: 4px;">Liste volontairement réduite. Pour la liste complète et officielle, consultez le <a href="https://ns.editeur.org/thema/fr" target="_blank" rel="noopener noreferrer">guide officiel d'EDItEUR</a>.</div>
       </fieldset>
+
       <fieldset>
         <legend>Publication</legend>
         <div class="row">
@@ -146,9 +230,12 @@
             <label for="productForm">Format</label>
             <select id="productForm">
               <option value="" selected>— Choisir un format —</option>
-              <option value="BC">Broché</option>
-              <option value="BB">Relié</option>
-              <option value="ED">Numérique (ePub / PDF)</option>
+              <option value="BB">Broché (Paperback)</option>
+              <option value="BA">Relié (Hardback)</option>
+              <option value="EA">Livre numérique (ePub)</option>
+              <option value="EB">Livre numérique (PDF)</option>
+              <option value="DH">Livre numérique (Audio)</option>
+              <option value="DG">Livre numérique (Autre)</option>
             </select>
           </div>
         </div>
@@ -173,6 +260,7 @@
           </div>
         </div>
       </fieldset>
+
       <fieldset>
         <legend>Prix &amp; disponibilité</legend>
         <div class="row">
@@ -198,10 +286,20 @@
           <label for="availability">Disponibilité commerciale</label>
           <select id="availability">
             <option value="" selected>— Choisir une disponibilité —</option>
-            <option value="20">Disponible (Mise en vente générale)</option>
-            <option value="10">À paraître (Précommande)</option>
-            <option value="40">Disponibilité incertaine / Réimprimer</option>
+            <option value="20">En stock</option>
+            <option value="10">À commander</option>
+            <option value="40">Disponibilité incertaine / Réimpression</option>
             <option value="31">Épuisé</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="stockQuantity">Quantité en stock</label>
+          <select id="stockQuantity">
+            <option value="00" selected>Non spécifié</option>
+            <option value="99">Illimité</option>
+            <option value="01">1 exemplaire</option>
+            <option value="02">2-5 exemplaires</option>
+            <option value="03">6-10 exemplaires</option>
           </select>
         </div>
       </fieldset>
@@ -212,7 +310,7 @@
           <p class="eyebrow">Épreuve XML</p>
           <span class="status-pill" id="statusPill" aria-live="polite">incomplet</span>
         </div>
-        
+
         <div class="preview-book-container">
           <div class="preview-cover-box" id="previewCover">Pas de visuel</div>
           <div class="preview-book-info">
@@ -226,10 +324,10 @@
         <div class="proof-actions">
           <button type="button" class="btn-primary" id="downloadBtn" disabled>Télécharger le .xml</button>
           <button type="button" class="btn-ghost" id="copyBtn" disabled>Copier le XML</button>
-          
+
           <label for="importFile" class="btn-label">Importer un .xml</label>
           <input type="file" id="importFile" accept=".xml" style="display:none;">
-          
+
           <button type="button" class="btn-ghost" id="resetBtn">Effacer la fiche</button>
           <span id="copyError" role="alert" style="font-size:.75rem;color:var(--accent-red);align-self:center;"></span>
         </div>
@@ -238,65 +336,33 @@
   </main>
 
   <footer class="note">
-    <img src="assets/icon.png" alt="Bureaucrafree" class="logo" style="height: 40px; width: auto; vertical-align: middle;">
-    <div><strong>KartoLibr (ex-<em>Errata</em> et ex-<em>OniXPress</em>) - Version 2.0.0</strong></div>
+    <img src="assets/icon.png" alt="KartoLibr" class="logo" style="height: 40px; width: auto; vertical-align: middle;">
+    <div><strong>KartoLibr</strong></div>
     <div>Fiche sauvegardée automatiquement dans votre navigateur (localStorage) — fermez l'onglet sans crainte, vous la retrouverez en revenant ici.</div>
     <div><strong>KartoLibr</strong> est un outil open source, gratuit et respectueux de la vie privée. Aucune donnée saisie ne quitte jamais votre ordinateur.</div>
     <div>Normes officielles basées sur les spécifications EDItEUR ONIX 3.0.</div>
     <div class="footer-links">
       <a href="pages/license.html">Licence GNU GPL 3.0</a>
       <div>
-        <a href="https://piaille.fr/@Axm" target="_blank" rel="noopener noreferrer">Mastodon</a>
+        <a rel="me" href="https://piaille.fr/@Axm" target="_blank" rel="noopener noreferrer">Mastodon</a>
         <span> • </span>
         <a href="https://liberapay.com/AxM3/donate" target="_blank" rel="noopener noreferrer">M'offrir du café</a>
       </div>
     </div>
   </footer>
-  
+
 <script>
 (function(){
   const STORAGE_KEY = 'kartolibr-fiche';
-  const STORAGE_SCHEMA_VERSION = 3;
+  const STORAGE_SCHEMA_VERSION = 4;
   const fields = ['isbn','title','subtitle','summary','keywords','subject',
                    'publisher','imprint','collection','pubdate','productForm','price','currency',
-                   'height', 'width', 'weight', 'availability', 'language', 'coverUrl'];
-  
-  let contributors = [{ firstname:'', lastname: '', role:'A01', lang: 'eng' }];
+                   'height', 'width', 'weight', 'availability', 'language', 'coverUrl',
+                   'productComposition', 'notificationType', 'publishingStatus', 'stockQuantity'];
+
+  let contributors = [{ firstname: '', lastname: '', role: 'A01', lang: 'eng' }];
   let localCoverDataUrl = '';
   const sessionRef = Date.now();
-  
-  const contributorRoles = [
-    { code: 'A01', label: 'Auteur.ice' },
-    { code: 'A18', label: 'Co-auteur.ice' },
-    { code: 'A02', label: 'Avec la participation de' },
-    { code: 'A03', label: 'Compilé par' },
-    { code: 'A04', label: 'Sélectionné par' },
-    { code: 'A11', label: 'Conception graphique de' },
-    { code: 'A12', label: 'Illustré par' },
-    { code: 'A13', label: 'Photographies de' },
-    { code: 'A14', label: 'Cartes par' },
-    { code: 'A31', label: 'Illustrations de couverture par' },
-    { code: 'A32', label: 'Couverture conçue par' },
-    { code: 'A36', label: 'Couverture / illustration de couverture par' },
-    { code: 'B05', label: 'Adapté par' },
-    { code: 'B06', label: 'Traduit par (Traducteur)' },
-    { code: 'B01', label: 'Sous la direction de / Édité par' },
-    { code: 'B02', label: 'Édité par' },
-    { code: 'B03', label: 'Conseiller.ère éditorial' },
-    { code: 'B04', label: 'Rédacteur-ice en chef' },
-    { code: 'B09', label: 'Collection dirigée par' },
-    { code: 'B20', label: 'Directeur.ice de collection' },
-    { code: 'B17', label: 'Collaborateur.ice' }
-  ];
-
-  const languagesList = [
-    { code: 'eng', label: 'Anglais' },
-    { code: 'fre', label: 'Français' },
-    { code: 'spa', label: 'Espagnol' },
-    { code: 'ger', label: 'Allemand' },
-    { code: 'ita', label: 'Italien' },
-    { code: 'por', label: 'Portugais' }
-  ];
 
   const els = {};
   fields.forEach(id => els[id] = document.getElementById(id));
@@ -312,20 +378,209 @@
   const importFileInput = document.getElementById('importFile');
   const dropZone = document.getElementById('dropZone');
   const cleanIsbnBtn = document.getElementById('cleanIsbnBtn');
-  
+
   const coverLocalZone = document.getElementById('coverLocalZone');
   const coverLocalFile = document.getElementById('coverLocalFile');
   const previewCover = document.getElementById('previewCover');
   const previewTitle = document.getElementById('previewTitle');
   const previewMeta = document.getElementById('previewMeta');
 
-  function escapeXml(str){
+  const subjectL1 = document.getElementById('subjectL1');
+    const subjectL2 = document.getElementById('subjectL2');
+  const subjectL3 = document.getElementById('subjectL3');
+  const subjectL4 = document.getElementById('subjectL4');
+  const subjectL2Wrap = document.getElementById('subjectL2Wrap');
+  const subjectL3Row = document.getElementById('subjectL3Row');
+  const subjectL3Wrap = document.getElementById('subjectL3Wrap');
+  const subjectL4Row = document.getElementById('subjectL4Row');
+  const subjectL4Wrap = document.getElementById('subjectL4Wrap');
+  const subjectCodeDisplay = document.getElementById('subjectCodeDisplay');
+  const subjectLabelDisplay = document.getElementById('subjectLabelDisplay');
+  const KEEP_PREFIX = '__keep__';
+
+  function fillSelect(selectEl, nodes, keepNode) {
+    selectEl.innerHTML = '<option value="">— Choisir —</option>';
+    if (keepNode) {
+      const opt = document.createElement('option');
+      opt.value = KEEP_PREFIX + keepNode.code;
+      opt.textContent = `↳ Rester à « ${keepNode.code} — ${keepNode.label} »`;
+      selectEl.appendChild(opt);
+    }
+    nodes.forEach(n => {
+      const opt = document.createElement('option');
+      opt.value = n.code;
+      opt.textContent = `${n.code} — ${n.label}`;
+      selectEl.appendChild(opt);
+    });
+  }
+
+  function findPath(nodes, code, path) {
+    for (const n of nodes) {
+      const newPath = path.concat([n]);
+      if (n.code === code) return newPath;
+      if (n.children) {
+        const found = findPath(n.children, code, newPath);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+
+  function resetSubjectSelects() {
+    fillSelect(subjectL1, THEMA_TREE, null);
+    subjectL2.innerHTML = '<option value="">— Choisir un sous-groupe —</option>';
+    subjectL3.innerHTML = '<option value="">— Choisir un sous-sous-groupe —</option>';
+    subjectL4.innerHTML = '<option value="">— Choisir un sous-sous-sous-groupe —</option>';
+    subjectL2Wrap.style.display = 'none';
+    subjectL3Row.style.display = 'none';
+    subjectL3Wrap.style.display = 'none';
+    subjectL4Row.style.display = 'none';
+    subjectL4Wrap.style.display = 'none';
+  }
+
+  function computeFinalCode() {
+    if (subjectL4Wrap.style.display !== 'none' && subjectL4.value) {
+      return subjectL4.value.startsWith(KEEP_PREFIX) ? subjectL4.value.slice(KEEP_PREFIX.length) : subjectL4.value;
+    }
+    if (subjectL3Wrap.style.display !== 'none' && subjectL3.value) {
+      return subjectL3.value.startsWith(KEEP_PREFIX) ? subjectL3.value.slice(KEEP_PREFIX.length) : subjectL3.value;
+    }
+    if (subjectL2Wrap.style.display !== 'none' && subjectL2.value) {
+      return subjectL2.value.startsWith(KEEP_PREFIX) ? subjectL2.value.slice(KEEP_PREFIX.length) : subjectL2.value;
+    }
+    if (subjectL1.value) {
+      return subjectL1.value;
+    }
+    return '';
+  }
+
+  function refreshSubjectDisplay() {
+    const code = els.subject.value;
+    const path = code ? findPath(THEMA_TREE, code, []) : null;
+    subjectCodeDisplay.textContent = code || '—';
+    subjectLabelDisplay.textContent = path ? ` (${path[path.length - 1].label})` : (code ? ' (code personnalisé, non listé)' : '');
+  }
+
+  function onSubjectL1Change() {
+    const node = THEMA_TREE.find(n => n.code === subjectL1.value);
+    subjectL2.value = '';
+    subjectL3.value = '';
+    subjectL4.value = '';
+    subjectL3Row.style.display = 'none';
+    subjectL3Wrap.style.display = 'none';
+    subjectL4Row.style.display = 'none';
+    subjectL4Wrap.style.display = 'none';
+    if (node && node.children) {
+      fillSelect(subjectL2, node.children, node);
+      subjectL2Wrap.style.display = '';
+    } else {
+      subjectL2Wrap.style.display = 'none';
+    }
+    els.subject.value = computeFinalCode();
+    refreshSubjectDisplay();
+    update();
+  }
+
+  function onSubjectL2Change() {
+    const raw = subjectL2.value;
+    const actualCode = raw.startsWith(KEEP_PREFIX) ? raw.slice(KEEP_PREFIX.length) : raw;
+    const parentNode = THEMA_TREE.find(n => n.code === subjectL1.value);
+    const node = parentNode && parentNode.children ? parentNode.children.find(n => n.code === actualCode) : null;
+    subjectL3.value = '';
+    subjectL4.value = '';
+    subjectL4Row.style.display = 'none';
+    subjectL4Wrap.style.display = 'none';
+    if (node && node.children && !raw.startsWith(KEEP_PREFIX)) {
+      fillSelect(subjectL3, node.children, node);
+      subjectL3Row.style.display = '';
+      subjectL3Wrap.style.display = '';
+    } else {
+      subjectL3Row.style.display = 'none';
+      subjectL3Wrap.style.display = 'none';
+    }
+    els.subject.value = computeFinalCode();
+    refreshSubjectDisplay();
+    update();
+  }
+
+  function onSubjectL3Change() {
+    const raw = subjectL3.value;
+    const actualCode = raw.startsWith(KEEP_PREFIX) ? raw.slice(KEEP_PREFIX.length) : raw;
+    const parentNode = THEMA_TREE.find(n => n.code === subjectL1.value);
+    const l2Node = parentNode?.children?.find(n => n.code === subjectL2.value);
+    const l3Node = l2Node?.children?.find(n => n.code === actualCode);
+
+    subjectL4.value = '';
+    if (l3Node && l3Node.children && !raw.startsWith(KEEP_PREFIX)) {
+      fillSelect(subjectL4, l3Node.children, l3Node);
+      subjectL4Row.style.display = '';
+      subjectL4Wrap.style.display = '';
+    } else {
+      subjectL4Row.style.display = 'none';
+      subjectL4Wrap.style.display = 'none';
+    }
+
+    els.subject.value = computeFinalCode();
+    refreshSubjectDisplay();
+    update();
+  }
+
+  function onSubjectL4Change() {
+    els.subject.value = computeFinalCode();
+    refreshSubjectDisplay();
+    update();
+  }
+
+  function setSubjectFromCode(code) {
+    resetSubjectSelects();
+    if (!code) {
+      els.subject.value = '';
+      refreshSubjectDisplay();
+      return;
+    }
+    const path = findPath(THEMA_TREE, code, []);
+    if (!path) {
+      els.subject.value = code;
+      refreshSubjectDisplay();
+      return;
+    }
+    subjectL1.value = path[0].code;
+    if (path[0].children) {
+      fillSelect(subjectL2, path[0].children, path[0]);
+      subjectL2Wrap.style.display = '';
+      subjectL2.value = path.length >= 2 ? path[1].code : (KEEP_PREFIX + path[0].code);
+
+      if (path.length >= 2 && path[1].children) {
+        fillSelect(subjectL3, path[1].children, path[1]);
+        subjectL3Row.style.display = '';
+        subjectL3Wrap.style.display = '';
+        subjectL3.value = path.length >= 3 ? path[2].code : (KEEP_PREFIX + path[1].code);
+
+        if (path.length >= 3 && path[2].children) {
+          fillSelect(subjectL4, path[2].children, path[2]);
+          subjectL4Row.style.display = '';
+          subjectL4Wrap.style.display = '';
+          subjectL4.value = path.length >= 4 ? path[3].code : (KEEP_PREFIX + path[2].code);
+        }
+      }
+    }
+    els.subject.value = code;
+    refreshSubjectDisplay();
+  }
+
+  subjectL1.addEventListener('change', onSubjectL1Change);
+  subjectL2.addEventListener('change', onSubjectL2Change);
+  subjectL3.addEventListener('change', onSubjectL3Change);
+  subjectL4.addEventListener('change', onSubjectL4Change);
+  resetSubjectSelects();
+
+  function escapeXml(str) {
     return String(str || '')
-      .replace(/&/g,'&amp;')
-      .replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;')
-      .replace(/'/g,'&apos;')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&apos;')
       .replace(/\s«/g, '«')
       .replace(/»\s/g, '»')
       .replace(/«/g, '«')
@@ -333,28 +588,32 @@
       .replace(/•/g, '-')
       .replace(/\u00A0/g, ' ');
   }
+
   function escapeAttr(str) {
-    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
-  function cleanIsbn(v){
-    return (v || '').replace(/[^0-9Xx]/g,'').toUpperCase();
+
+  function cleanIsbn(v) {
+    return (v || '').replace(/[^0-9Xx]/g, '').toUpperCase();
   }
-  function isbn13CheckDigit(isbn12){
+
+  function isbn13CheckDigit(isbn12) {
     let sum = 0;
-    for(let i=0;i<12;i++){
-      const d = parseInt(isbn12[i],10);
-      sum += (i % 2 === 0) ? d : d*3;
+    for (let i = 0; i < 12; i++) {
+      const d = parseInt(isbn12[i], 10);
+      sum += (i % 2 === 0) ? d * 1 : d * 3;
     }
     const mod = sum % 10;
     return mod === 0 ? 0 : 10 - mod;
   }
-  function validateIsbn(raw){
+
+  function validateIsbn(raw) {
     const clean = cleanIsbn(raw);
-    if(clean.length === 0) return { state:'neutral', msg:'Saisissez les 13 chiffres, espaces ou tirets tolérés.' };
-    if(clean.length !== 13 || !/^\d{13}$/.test(clean)) return { state:'bad', msg:'Un ISBN-13 comporte exactement 13 chiffres.' };
-    const expected = isbn13CheckDigit(clean.slice(0,12));
-    if(expected === parseInt(clean[12],10)) return { state:'ok', msg:'✓ Clé valide.', clean };
-    return { state:'bad', msg:`✗ Clé invalide (attendu ${expected}).` };
+    if (clean.length === 0) return { state: 'neutral', msg: 'Saisissez les 13 chiffres, espaces ou tirets tolérés.' };
+    if (clean.length !== 13 || !/^[0-9]{13}$/.test(clean)) return { state: 'bad', msg: 'Un ISBN-13 comporte exactement 13 chiffres.' };
+    const expected = isbn13CheckDigit(clean.slice(0, 12));
+    if (expected === parseInt(clean[12], 10)) return { state: 'ok', msg: '✓ Clé valide.', clean };
+    return { state: 'bad', msg: `✗ Clé invalide (attendu ${expected}).` };
   }
 
   cleanIsbnBtn.addEventListener('click', () => {
@@ -364,13 +623,13 @@
 
   coverLocalZone.addEventListener('click', () => coverLocalFile.click());
   coverLocalFile.addEventListener('change', e => handleCoverFile(e.target.files[0]));
-  
+
   coverLocalZone.addEventListener('dragover', e => { e.preventDefault(); coverLocalZone.style.borderColor = 'var(--accent-gold)'; });
   coverLocalZone.addEventListener('dragleave', () => coverLocalZone.style.borderColor = 'var(--line)');
   coverLocalZone.addEventListener('drop', e => {
     e.preventDefault();
     coverLocalZone.style.borderColor = 'var(--line)';
-    if(e.dataTransfer.files.length > 0) handleCoverFile(e.dataTransfer.files[0]);
+    if (e.dataTransfer.files.length > 0) handleCoverFile(e.dataTransfer.files[0]);
   });
 
   function handleCoverFile(file) {
@@ -393,12 +652,11 @@
       previewCover.style.backgroundImage = 'none';
       previewCover.textContent = 'Pas de visuel';
     }
-    
     previewTitle.textContent = state.title.trim() ? state.title : 'Sans titre';
     previewMeta.textContent = `ISBN : ${state.isbnClean ? state.isbnClean : '—'}`;
   }
 
-  function renderContributors(){
+  function renderContributors() {
     contributorsWrap.innerHTML = '';
     contributors.forEach((c, idx) => {
       const row = document.createElement('div');
@@ -406,13 +664,13 @@
 
       const fnField = document.createElement('div');
       fnField.className = 'field';
-      fnField.innerHTML = `<label for="contrib-fn-${idx}">Prénom</label><input type="text" id="contrib-fn-${idx}" value="${escapeAttr(c.firstname)}" placeholder="Prénom">`;
+      fnField.innerHTML = `<label for="contrib-fn-${idx}">Prénom</label><input type="text" id="contrib-fn-${idx}" value="${escapeAttr(c.firstname)}" placeholder="Prénom (facultatif)">`;
       fnField.querySelector('input').addEventListener('input', e => { contributors[idx].firstname = e.target.value; update(); });
       row.appendChild(fnField);
 
       const lnField = document.createElement('div');
       lnField.className = 'field';
-      lnField.innerHTML = `<label for="contrib-ln-${idx}">Nom de famille ${idx===0?'<span class="req">*</span>':''}</label><input type="text" id="contrib-ln-${idx}" value="${escapeAttr(c.lastname)}" placeholder="Nom" ${idx===0?'required':''}>`;
+      lnField.innerHTML = `<label for="contrib-ln-${idx}">Nom</label><input type="text" id="contrib-ln-${idx}" value="${escapeAttr(c.lastname)}" placeholder="Nom ou pseudo ${idx === 0 ? '(obligatoire)' : ''}" ${idx === 0 ? 'required' : ''}>`;
       lnField.querySelector('input').addEventListener('input', e => { contributors[idx].lastname = e.target.value; update(); });
       row.appendChild(lnField);
 
@@ -420,8 +678,14 @@
       roleField.className = 'field';
       const rSelect = document.createElement('select');
       rSelect.id = `contrib-role-${idx}`;
-      contributorRoles.forEach(r => rSelect.innerHTML += `<option value="${r.code}" ${r.code===c.role?'selected':''}>${r.label}</option>`);
-      rSelect.addEventListener('change', e => { contributors[idx].role = e.target.value; renderContributors(); update(); });
+      contributorRoles.forEach(r => {
+        rSelect.innerHTML += `<option value="${r.code}" ${r.code === c.role ? 'selected' : ''}>${r.label}</option>`;
+      });
+      rSelect.addEventListener('change', e => {
+        contributors[idx].role = e.target.value;
+        renderContributors();
+        update();
+      });
       roleField.innerHTML = `<label for="contrib-role-${idx}">Rôle</label>`;
       roleField.appendChild(rSelect);
       row.appendChild(roleField);
@@ -431,17 +695,23 @@
         langField.className = 'field';
         const lSelect = document.createElement('select');
         lSelect.id = `contrib-lang-${idx}`;
-        languagesList.forEach(l => lSelect.innerHTML += `<option value="${l.code}" ${l.code===(c.lang||'eng')?'selected':''}>${l.label}</option>`);
+        languagesList.forEach(l => lSelect.innerHTML += `<option value="${l.code}" ${l.code === (c.lang || 'eng') ? 'selected' : ''}>${l.label}</option>`);
         lSelect.addEventListener('change', e => { contributors[idx].lang = e.target.value; update(); });
         langField.innerHTML = `<label for="contrib-lang-${idx}">Langue source</label>`;
         langField.appendChild(lSelect);
         row.appendChild(langField);
       }
 
-      if(contributors.length > 1){
+      if (contributors.length > 1) {
         const rem = document.createElement('button');
-        rem.type = 'button'; rem.className = 'btn-remove'; rem.textContent = 'Retirer';
-        rem.addEventListener('click', () => { contributors.splice(idx,1); renderContributors(); update(); });
+        rem.type = 'button';
+        rem.className = 'btn-remove';
+        rem.textContent = 'Retirer';
+        rem.addEventListener('click', () => {
+          contributors.splice(idx, 1);
+          renderContributors();
+          update();
+        });
         row.appendChild(rem);
       }
       contributorsWrap.appendChild(row);
@@ -449,29 +719,13 @@
   }
 
   document.getElementById('addContributor').addEventListener('click', () => {
-    contributors.push({ firstname:'', lastname: '', role:'A01', lang: 'eng' });
-    renderContributors(); update();
+    contributors.push({ firstname: '', lastname: '', role: 'A01', lang: 'eng' });
+    renderContributors();
+    update();
   });
 
   function getTextContent(node) {
     return node ? node.textContent.trim() : '';
-  }
-
-  function findNode(parent, tagName, conditionFn) {
-    const nodes = parent.getElementsByTagName(tagName);
-    for (let i = 0; i < nodes.length; i++) {
-      if (conditionFn(nodes[i])) return nodes[i];
-    }
-    return null;
-  }
-
-  function findNodes(parent, tagName, conditionFn) {
-    const nodes = parent.getElementsByTagName(tagName);
-    const result = [];
-    for (let i = 0; i < nodes.length; i++) {
-      if (conditionFn(nodes[i])) result.push(nodes[i]);
-    }
-    return result;
   }
 
   function processXmlFile(file) {
@@ -481,7 +735,7 @@
       try {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(evt.target.result, "application/xml");
-        
+
         if (xmlDoc.getElementsByTagName("parsererror").length > 0 || !xmlDoc.querySelector('ONIXMessage')) {
           alert("Fichier XML invalide ou non conforme aux schémas ONIX requis.");
           return;
@@ -497,21 +751,10 @@
           return null;
         }
 
-        function getSiblingAfter(node, tagName) {
-          let sibling = node.nextSibling;
-          while (sibling) {
-            if (sibling.nodeType === 1 && sibling.tagName === tagName) {
-              return sibling;
-            }
-            sibling = sibling.nextSibling;
-          }
-          return null;
-        }
-
         const titleElements = xmlDoc.querySelectorAll('TitleElement');
         let titleText = '';
         let subtitleText = '';
-        
+
         titleElements.forEach(el => {
           const level = el.querySelector('TitleElementLevel');
           if (level && level.textContent.trim() === '01') {
@@ -521,7 +764,7 @@
             if (subtitleEl) subtitleText = subtitleEl.textContent.trim();
           }
         });
-        
+
         if (!titleText) {
           const simpleTitle = xmlDoc.querySelector('TitleText');
           if (simpleTitle) titleText = simpleTitle.textContent.trim();
@@ -547,32 +790,51 @@
         const collectionTitle = collectionNode ? collectionNode.querySelector('TitleText') : null;
         els.collection.value = getTextContent(collectionTitle);
         const productFormNode = xmlDoc.querySelector('ProductForm');
-        els.productForm.value = getTextContent(productFormNode) || 'BC';
+        els.productForm.value = getTextContent(productFormNode) || 'BB';
+
+        const productCompositionNode = xmlDoc.querySelector('ProductComposition');
+        els.productComposition.value = getTextContent(productCompositionNode) || '00';
+
+        const notificationTypeNode = xmlDoc.querySelector('NotificationType');
+        els.notificationType.value = getTextContent(notificationTypeNode) || '03';
+
+        const publishingStatusNode = xmlDoc.querySelector('PublishingStatus');
+        els.publishingStatus.value = getTextContent(publishingStatusNode) || '04';
+
         const languageNode = xmlDoc.querySelector('LanguageCode');
         els.language.value = getTextContent(languageNode) || 'fre';
+
         const subject93 = xmlDoc.querySelector('Subject[SubjectSchemeIdentifier="93"]');
         const subjectCode = subject93 ? subject93.querySelector('SubjectCode') : null;
         const fallbackSubject = subjectCode ? null : xmlDoc.querySelector('SubjectCode');
         els.subject.value = getTextContent(subjectCode) || getTextContent(fallbackSubject) || '';
+        setSubjectFromCode(els.subject.value);
+
         const availabilityNode = xmlDoc.querySelector('ProductAvailability');
         els.availability.value = getTextContent(availabilityNode) || '20';
+
+        const stockQuantityNode = xmlDoc.querySelector('StockQuantityCode');
+        els.stockQuantity.value = getTextContent(stockQuantityNode) || '00';
+
         const priceNode = xmlDoc.querySelector('PriceAmount');
         els.price.value = getTextContent(priceNode);
+
         const supportingResource = getNodeWithChildValue(xmlDoc, 'ResourceContentType', '01');
         const resourceLink = supportingResource ? supportingResource.querySelector('ResourceLink') : null;
         els.coverUrl.value = getTextContent(resourceLink) || '';
+
         const currencyCodeNode = xmlDoc.querySelector('CurrencyCode');
         const taxRegionNode = xmlDoc.querySelector('TaxRegionCode');
         const countriesIncludedNode = xmlDoc.querySelector('CountriesIncluded');
-        
+
         const cc = getTextContent(currencyCodeNode);
         const reg = getTextContent(taxRegionNode) || getTextContent(countriesIncludedNode);
-        if(cc === 'EUR') {
+        if (cc === 'EUR') {
           els.currency.value = reg === 'BE' ? 'EUR-BE' : 'EUR-FR';
         } else {
           els.currency.value = cc || 'EUR-FR';
         }
-        
+
         const measures = xmlDoc.querySelectorAll('Measure');
         els.height.value = ''; els.width.value = ''; els.weight.value = '';
         measures.forEach(m => {
@@ -581,26 +843,25 @@
           if (!typeNode || !valNode) return;
           const type = typeNode.textContent.trim();
           const val = valNode.textContent.trim();
-          if(type === '01') els.height.value = val;
-          if(type === '02') els.width.value = val;
-          if(type === '08') els.weight.value = val;
+          if (type === '01') els.height.value = val;
+          if (type === '02') els.width.value = val;
+          if (type === '08') els.weight.value = val;
         });
+
         const publishingDateNode = xmlDoc.querySelector('PublishingDate');
         const dateNode = publishingDateNode ? publishingDateNode.querySelector('Date') : null;
         const rawDate = getTextContent(dateNode);
-        if(rawDate && rawDate.length === 8) {
-          els.pubdate.value = `${rawDate.slice(0,4)}-${rawDate.slice(4,6)}-${rawDate.slice(6,8)}`;
+        if (rawDate && rawDate.length === 8) {
+          els.pubdate.value = `${rawDate.slice(0, 4)}-${rawDate.slice(4, 6)}-${rawDate.slice(6, 8)}`;
         } else {
           els.pubdate.value = '';
         }
 
         const productIdentifiers = xmlDoc.querySelectorAll('ProductIdentifier');
         let isbnValue = '';
-        console.log('ProductIdentifiers trouvés :', productIdentifiers.length);
         productIdentifiers.forEach(pid => {
           const idType = pid.querySelector('ProductIDType');
           const idValue = pid.querySelector('IDValue');
-          console.log('  Type :', idType ? idType.textContent.trim() : 'absent', '— Valeur :', idValue ? idValue.textContent.trim() : 'absente');
           if (idType && (idType.textContent.trim() === '15' || idType.textContent.trim() === '03') && idValue) {
             isbnValue = idValue.textContent.trim();
           }
@@ -616,7 +877,7 @@
             const contributorRole = c.querySelector('ContributorRole');
             const contributorLanguage = c.querySelector('ContributorLanguage');
             const langCode = contributorLanguage ? contributorLanguage.querySelector('LanguageCode') : null;
-            
+
             contributors.push({
               firstname: getTextContent(namesBeforeKey) || '',
               lastname: getTextContent(keyNames) || '',
@@ -624,12 +885,13 @@
               lang: getTextContent(langCode) || 'eng'
             });
           });
+        } else {
+          contributors = [{ firstname: '', lastname: '', role: 'A01', lang: 'eng' }];
         }
-        
+
         localCoverDataUrl = '';
         renderContributors();
         update();
-        
         alert('Fichier XML importé avec succès !');
       } catch (err) {
         console.error('Erreur lors du traitement du XML:', err);
@@ -658,25 +920,32 @@
     }
   });
 
-  function ymd(dateStr){ return dateStr ? dateStr.replace(/-/g,'') : ''; }
-  
+  function ymd(dateStr) { return dateStr ? dateStr.replace(/-/g, '') : ''; }
+
   function getTaxDetails(currencySelector, productForm) {
     switch (currencySelector) {
-      case 'EUR-BE': return { rate: '6.0', value: 0.06, region: 'BE', currency: 'EUR', geoTag: `<CountriesIncluded>BE</CountriesIncluded>` };
-      case 'CHF': return { rate: '2.6', value: 0.026, region: 'CH', currency: 'CHF', geoTag: `<CountriesIncluded>CH</CountriesIncluded>` };
-      case 'CAD': return { rate: '5.0', value: 0.05, region: 'CA', currency: 'CAD', geoTag: `<CountriesIncluded>CA</CountriesIncluded>` };
-      case 'GBP': return { rate: '0.0', value: 0.0, region: 'GB', currency: 'GBP', geoTag: `<CountriesIncluded>GB</CountriesIncluded>` };
-      case 'USD': return { rate: '0.0', value: 0.0, region: 'US', currency: 'USD', geoTag: `<CountriesIncluded>US</CountriesIncluded>` };
-      default: return { rate: productForm === 'ED' ? '4.0' : '5.5', value: productForm === 'ED' ? 0.04 : 0.055, region: 'FR', currency: 'EUR', geoTag: `<CountriesIncluded>FR</CountriesIncluded>` };
+      case 'EUR-BE': return { rate: '6.0', value: 0.06, region: 'BE', currency: 'EUR', geoTag: '<CountriesIncluded>BE</CountriesIncluded>', taxCode: 'VAT' };
+      case 'CHF': return { rate: '2.6', value: 0.026, region: 'CH', currency: 'CHF', geoTag: '<CountriesIncluded>CH</CountriesIncluded>', taxCode: 'VAT' };
+      case 'CAD': return { rate: '5.0', value: 0.05, region: 'CA', currency: 'CAD', geoTag: '<CountriesIncluded>CA</CountriesIncluded>', taxCode: 'GST' };
+            case 'GBP': return { rate: '0.0', value: 0.0, region: 'GB', currency: 'GBP', geoTag: '<CountriesIncluded>GB</CountriesIncluded>', taxCode: 'VAT' };
+      case 'USD': return { rate: '0.0', value: 0.0, region: 'US', currency: 'USD', geoTag: '<CountriesIncluded>US</CountriesIncluded>', taxCode: 'VAT' };
+      default: return {
+        rate: (productForm === 'EA' || productForm === 'EB' || productForm === 'DH' || productForm === 'DG') ? '4.0' : '5.5',
+        value: (productForm === 'EA' || productForm === 'EB' || productForm === 'DH' || productForm === 'DG') ? 0.04 : 0.055,
+        region: 'FR',
+        currency: 'EUR',
+        geoTag: '<CountriesIncluded>FR</CountriesIncluded>',
+        taxCode: 'VAT'
+      };
     }
   }
 
-  function getState(){
+  function getState() {
     const isbnValidation = validateIsbn(els.isbn.value);
     const priceNum = parseFloat(els.price.value) || 0;
     const taxDetails = getTaxDetails(els.currency.value, els.productForm.value);
     const netPrice = priceNum / (1 + taxDetails.value);
-    
+
     return {
       isbn: els.isbn.value,
       isbnClean: isbnValidation.clean || '',
@@ -691,6 +960,9 @@
       collection: els.collection.value,
       pubdate: els.pubdate.value,
       productForm: els.productForm.value,
+      productComposition: els.productComposition.value,
+      notificationType: els.notificationType.value,
+      publishingStatus: els.publishingStatus.value,
       price: priceNum.toFixed(2),
       currency: els.currency.value,
       netPrice: netPrice.toFixed(6),
@@ -699,27 +971,38 @@
       taxRegion: taxDetails.region,
       taxCurrency: taxDetails.currency,
       geoTag: taxDetails.geoTag,
+      taxCode: taxDetails.taxCode,
       height: els.height.value,
       width: els.width.value,
       weight: els.weight.value,
       availability: els.availability.value,
+      stockQuantity: els.stockQuantity.value,
       language: els.language.value,
       coverUrl: els.coverUrl.value
     };
   }
 
-  function buildXml(state){
+  function buildXml(state) {
     const now = new Date();
     const sentDateTime = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '').replace('T', '').slice(0, 14) + 'Z';
     const recordRef = state.isbnClean ? `REF-${state.isbnClean}` : `REF-${sessionRef}`;
     const formattedPrice = parseFloat(state.price) ? parseFloat(state.price).toFixed(2) : '0.00';
     const taxDetails = getTaxDetails(state.currency, state.productForm);
-    const publishingStatus = { '10':'02', '20':'04', '40':'04', '31':'07' }[state.availability] || '04';
-    
-    const contributorsXml = contributors.filter(c => c.lastname.trim()).map((c,i) => {
-      let langXml = (c.role === 'B06' && c.lang) ? `\n        <ContributorLanguage><LanguageRole>02</LanguageRole><LanguageCode>${escapeXml(c.lang)}</LanguageCode></ContributorLanguage>` : '';
-      return `      <Contributor>\n        <SequenceNumber>${i+1}</SequenceNumber>\n        <ContributorRole>${c.role}</ContributorRole>\n        ${c.firstname.trim() ? `<NamesBeforeKey>${escapeXml(c.firstname.trim())}</NamesBeforeKey>\n        ` : ''}<KeyNames>${escapeXml(c.lastname.trim())}</KeyNames>${langXml}\n      </Contributor>`;
-    }).join('\n') || `      <Contributor><SequenceNumber>1</SequenceNumber><ContributorRole>A01</ContributorRole><KeyNames>Anonyme</KeyNames></Contributor>`;
+
+    const contributorsXml = contributors.map((c, i) => {
+      let namePart = '';
+      if (c.lastname.trim()) {
+        namePart = c.firstname.trim()
+          ? `<NamesBeforeKey>${escapeXml(c.firstname.trim())}</NamesBeforeKey>\n        <KeyNames>${escapeXml(c.lastname.trim())}</KeyNames>`
+          : `<KeyNames>${escapeXml(c.lastname.trim())}</KeyNames>`;
+      } else {
+        namePart = '<UnnamedPersons><UnnamedPerson>02</UnnamedPerson></UnnamedPersons>'; // 02 = Anonyme (Liste 19)
+      }
+      let langXml = (c.role === 'B06' && c.lang)
+        ? `\n        <ContributorLanguage><LanguageRole>02</LanguageRole><LanguageCode>${escapeXml(c.lang)}</LanguageCode></ContributorLanguage>`
+        : '';
+      return `      <Contributor>\n        <SequenceNumber>${i + 1}</SequenceNumber>\n        <ContributorRole>${c.role}</ContributorRole>\n        ${namePart}${langXml}\n      </Contributor>`;
+    }).join('\n');
 
     const subjectXml = state.subject ? `      <Subject><SubjectSchemeIdentifier>93</SubjectSchemeIdentifier><SubjectCode>${escapeXml(state.subject)}</SubjectCode></Subject>\n` : '';
     const keywordsXml = state.keywords.trim() ? `      <Subject><SubjectSchemeIdentifier>20</SubjectSchemeIdentifier><SubjectHeadingText>${escapeXml(state.keywords.trim())}</SubjectHeadingText></Subject>\n` : '';
@@ -733,18 +1016,18 @@
   </Header>
   <Product recordReference="${recordRef}">
     <RecordReference>${recordRef}</RecordReference>
-    <NotificationType>02</NotificationType>
+    <NotificationType>${escapeXml(state.notificationType || '03')}</NotificationType>
     <ProductIdentifier>
       <ProductIDType>15</ProductIDType>
       <IDValue>${state.isbnClean || '0000000000000'}</IDValue>
     </ProductIdentifier>
     <DescriptiveDetail>
-      <ProductComposition>10</ProductComposition>
-      <ProductForm>${state.productForm}</ProductForm>
+      <ProductComposition>${escapeXml(state.productComposition || '00')}</ProductComposition>
+      <ProductForm>${escapeXml(state.productForm)}</ProductForm>
       ${state.height ? `<Measure type="01" measurement="${state.height}" unitcode="mm"/>` : ''}
       ${state.width ? `<Measure type="02" measurement="${state.width}" unitcode="mm"/>` : ''}
       ${state.weight ? `<Measure type="08" measurement="${state.weight}" unitcode="gr"/>` : ''}
-      <Language><LanguageRole>01</LanguageRole><LanguageCode>${state.language}</LanguageCode></Language>
+      <Language><LanguageRole>01</LanguageRole><LanguageCode>${escapeXml(state.language)}</LanguageCode></Language>
       <TitleDetail>
         <TitleType>01</TitleType>
         <TitleElement>
@@ -762,14 +1045,31 @@
         <ContentAudience>00</ContentAudience>
         <Text>${escapeXml(state.summary)}</Text>
       </TextContent>
-      ${state.coverUrl ? `<SupportingResource>\n        <ResourceContentType>01</ResourceContentType>\n        <ResourceMode>03</ResourceMode>\n        <ResourceLink>${escapeXml(state.coverUrl)}</ResourceLink>\n      </SupportingResource>` : ''}
+      ${state.coverUrl ? `<SupportingResource>
+        <ResourceContentType>01</ResourceContentType>
+        <ResourceMode>03</ResourceMode>
+        <ResourceLink>${escapeXml(state.coverUrl)}</ResourceLink>
+      </SupportingResource>` : ''}
     </CollateralDetail>
     <PublishingDetail>
+      <PublishingStatus>${escapeXml(state.publishingStatus || '04')}</PublishingStatus>
       <Imprint>
         <ImprintName>${escapeXml(state.publisher)}</ImprintName>
-        ${state.imprint ? `<ImprintIdentifier>\n          <ImprintIDType>01</ImprintIDType>\n          <IDValue>${escapeXml(state.imprint)}</IDValue>\n        </ImprintIdentifier>` : ''}
+        ${state.imprint ? `<ImprintIdentifier>
+          <ImprintIDType>01</ImprintIDType>
+          <IDValue>${escapeXml(state.imprint)}</IDValue>
+        </ImprintIdentifier>` : ''}
       </Imprint>
-      ${state.collection ? `<Collection>\n        <CollectionType>10</CollectionType>\n        <TitleDetail>\n          <TitleType>01</TitleType>\n          <TitleElement>\n            <TitleElementLevel>01</TitleElementLevel>\n            <TitleText>${escapeXml(state.collection)}</TitleText>\n          </TitleElement>\n        </TitleDetail>\n      </Collection>` : ''}
+      ${state.collection ? `<Collection>
+        <CollectionType>01</CollectionType>
+        <TitleDetail>
+          <TitleType>01</TitleType>
+          <TitleElement>
+            <TitleElementLevel>01</TitleElementLevel>
+            <TitleText>${escapeXml(state.collection)}</TitleText>
+          </TitleElement>
+        </TitleDetail>
+      </Collection>` : ''}
       <Publisher>
         <PublishingRole>01</PublishingRole>
         <PublisherName>${escapeXml(state.publisher)}</PublisherName>
@@ -781,9 +1081,9 @@
         <MarketCountry>${taxDetails.region}</MarketCountry>
         <SupplyDetail>
           <SupplierName>${escapeXml(state.publisher)}</SupplierName>
-          <ProductAvailability>${state.availability}</ProductAvailability>
+          <ProductAvailability>${escapeXml(state.availability)}</ProductAvailability>
           <Stock>
-            <StockQuantityCode>00</StockQuantityCode>
+            <StockQuantityCode>${escapeXml(state.stockQuantity || '00')}</StockQuantityCode>
           </Stock>
           <Price>
             <PriceTypeCode>01</PriceTypeCode>
@@ -792,7 +1092,7 @@
             ${taxDetails.geoTag}
             <Tax>
               <TaxType>01</TaxType>
-              <TaxRateCode>VAT</TaxRateCode>
+              <TaxRateCode>${escapeXml(taxDetails.taxCode)}</TaxRateCode>
               <TaxRate>${taxDetails.rate}</TaxRate>
               <TaxableAmount>${state.netPrice}</TaxableAmount>
               <TaxAmount>${(parseFloat(state.price) - parseFloat(state.netPrice)).toFixed(6)}</TaxAmount>
@@ -805,52 +1105,53 @@
 </ONIXMessage>`;
   }
 
-  function update(){
+  function update() {
     const state = getState();
     const saveData = { schema: STORAGE_SCHEMA_VERSION };
     fields.forEach(f => saveData[f] = els[f].value);
     saveData.contributors = contributors;
     saveData.coverUrl = state.coverUrl;
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData)); } catch(e){}
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData)); } catch(e) {}
+
     const isbnValid = validateIsbn(els.isbn.value);
     isbnStatus.className = 'isbn-status ' + isbnValid.state;
     isbnStatus.textContent = isbnValid.msg;
-    
+
     updateCoverPreview();
-    
+
     const checks = [
-      { id:'isbn', done: state.isbnValid, label:'ISBN-13 valide' },
-      { id:'title', done: state.title.trim().length > 0, label:'Titre saisi' },
-      { id:'publisher', done: state.publisher.trim().length > 0, label:'Éditeur saisi' },
-      { id:'pubdate', done: state.pubdate.length > 0, label:'Date de parution' },
-      { id:'price', done: parseFloat(state.price) > 0, label:'Prix > 0' },
-      { id:'contrib', done: contributors.some(c => c.lastname.trim().length > 0), label:'Au moins un auteur.ice' },
-      { id:'language', done: state.language.length > 0, label:'Langue choisie' }
+      { id: 'isbn', done: state.isbnValid, label: 'ISBN-13 valide' },
+      { id: 'title', done: state.title.trim().length > 0, label: 'Titre saisi' },
+      { id: 'publisher', done: state.publisher.trim().length > 0, label: 'Éditeur saisi' },
+      { id: 'pubdate', done: state.pubdate.length > 0, label: 'Date de parution' },
+      { id: 'price', done: parseFloat(state.price) > 0, label: 'Prix > 0' },
+      { id: 'contrib', done: contributors.length > 0, label: 'Au moins un contributeur' },
+      { id: 'language', done: state.language.length > 0, label: 'Langue choisie' }
     ];
-    
-    checklistEl.innerHTML = checks.map(c => 
-      `<li class="${c.done?'done':''}">
-        <span class="mark">${c.done?'✓':'✗'}</span>
+
+    checklistEl.innerHTML = checks.map(c =>
+      `<li class="${c.done ? 'done' : ''}">
+        <span class="mark">${c.done ? '✓' : '✗'}</span>
         ${c.label}
       </li>`
     ).join('');
-    
+
     const allDone = checks.every(c => c.done);
     statusPill.textContent = allDone ? 'prêt' : 'incomplet';
     statusPill.className = 'status-pill ' + (allDone ? 'ready' : '');
-    
+
     const xml = buildXml(state);
     xmlOutput.textContent = xml;
-    
+
     downloadBtn.disabled = !allDone;
     copyBtn.disabled = !allDone;
-    
+
     downloadBtn.onclick = () => {
-      const blob = new Blob([xml], {type:'application/xml'});
+      const blob = new Blob([xml], { type: 'application/xml' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `onix_${state.isbnClean || 'fiche'}_${new Date().toISOString().slice(0,10)}.xml`;
+      a.download = `onix_${state.isbnClean || 'fiche'}_${new Date().toISOString().slice(0, 10)}.xml`;
       a.style.display = 'none';
       document.body.appendChild(a);
       a.click();
@@ -859,58 +1160,60 @@
         URL.revokeObjectURL(url);
       }, 100);
     };
-    
+
     copyBtn.onclick = async () => {
       try {
         await navigator.clipboard.writeText(xml);
         copyError.textContent = '';
-      } catch(e){
+      } catch(e) {
         copyError.textContent = 'Échec de la copie';
       }
     };
-    
+
     const priceCalculated = document.getElementById('priceCalculated');
-    if(priceCalculated) {
+    if (priceCalculated) {
       const taxDetails = getTaxDetails(state.currency, state.productForm);
       const net = (parseFloat(state.price) / (1 + taxDetails.value)).toFixed(2);
       const tax = (parseFloat(state.price) - parseFloat(net)).toFixed(2);
       priceCalculated.textContent = `Net: ${net} € + TVA (${taxDetails.rate}%): ${tax} €`;
     }
-    
-    if(logisticsRow) {
-      logisticsRow.style.display = state.productForm === 'ED' ? 'none' : 'grid';
+
+    if (logisticsRow) {
+      logisticsRow.style.display = (state.productForm === 'EA' || state.productForm === 'EB' || state.productForm === 'DH' || state.productForm === 'DG') ? 'none' : 'grid';
     }
   }
 
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if(saved) {
+    if (saved) {
       const data = JSON.parse(saved);
-      if(data.schema === STORAGE_SCHEMA_VERSION) {
+      if (data.schema === STORAGE_SCHEMA_VERSION) {
         fields.forEach(f => {
-          if(data[f] !== undefined && els[f]) els[f].value = data[f];
+          if (data[f] !== undefined && els[f]) els[f].value = data[f];
         });
-        if(data.contributors) contributors = data.contributors;
+        if (data.contributors) contributors = data.contributors;
         renderContributors();
+        setSubjectFromCode(els.subject.value);
       }
     }
   } catch(e) {}
-  
+
   document.getElementById('resetBtn').addEventListener('click', () => {
-    if(confirm('Effacer tous les champs ?')) {
+    if (confirm('Effacer tous les champs ?')) {
       fields.forEach(f => els[f].value = '');
-      contributors = [{ firstname:'', lastname: '', role:'A01', lang: 'eng' }];
+      contributors = [{ firstname: '', lastname: '', role: 'A01', lang: 'eng' }];
       localCoverDataUrl = '';
       renderContributors();
+      setSubjectFromCode('');
       update();
       localStorage.removeItem(STORAGE_KEY);
     }
   });
-  
+
   fields.forEach(f => {
-    if(els[f]) els[f].addEventListener('input', update);
+    if (els[f] && f !== 'subject') els[f].addEventListener('input', update);
   });
-  
+
   renderContributors();
   update();
 })();

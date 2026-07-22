@@ -52,8 +52,7 @@ Il élimine la complexité de la manipulation directe des fichiers XML structur�
 ## Exemple de sortie (XML)
 
 Vous pouvez voir des fiches exemple dans le dossier [example](https://github.com/Ax4M3/KartoLibr/tree/main/example) avec ces deux exemples pour l'instant : 
-- [*« État de droit », ordre bourgeois* par Esla Marcel aux éditions La fabrique](lafabrique.fr/etat-de-droit-ordre-bourgeois/), voir le fichier : [fiche xml](example/onix_9782358723138_2026-07-16.xml)
-- [*Maisons d’enfance* par auror·404 aux éditions Burn~Août](https://www.editionsburnaout.fr/publication/livre/MDE.html#p-2), voir le fichier : [fiche xml](example/onix_9782493534255_2026-07-16.xml)
+- *supprimés car invalides, de nouveaux fichiers vidront en exemple.*
 
 ## À propos et engagement
 
